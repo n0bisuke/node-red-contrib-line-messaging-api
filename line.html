@@ -1,0 +1,50 @@
+<script type="text/javascript">
+    RED.nodes.registerType('Ambient',{
+        category: 'advanced',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            channelId: {value:"",required:true},
+            writeKey: {value:"",required:true},
+        },
+        inputs:1,
+        outputs:0,
+        icon: "arrow-in.png",
+        align: "right",
+        label: function() {
+            return this.name||"Ambient";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="Ambient">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-channelId"><i class="icon-tag"></i> ChannelId</label>
+        <input type="text" id="node-input-channelId" placeholder="ChannelId">
+    </div>
+    <div class="form-row">
+        <label for="node-input-writeKey"><i class="icon-tag"></i> WriteKey</label>
+        <input type="text" id="node-input-writeKey" placeholder="WriteKey">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="Ambient">
+    <p>Ambientにデーターを送信して可視化する</p>
+    <p>
+        AmbientはIoTクラウドサービスで、センサーデーターを受信し、蓄積し、可視化(グラフ化)します。
+        Ambientの詳細、使い方は<a href="https://ambidata.io">こちら</a>をご覧ください。
+    </p>
+    <p>
+        ワークスペース上のAmbientノードで、AmbientのチャネルIDとライトキーを設定します。
+    </p>
+    <p>
+        データーは<pre>{"d1":データー1, "d2":データー2, ...}</pre>という形式で渡します。
+    </p>
+    <p>
+        チャートは<a href="https://ambidata.io">Ambientサイト</a>で見ることができます。
+    </p>
+</script>
