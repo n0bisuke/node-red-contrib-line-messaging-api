@@ -1,0 +1,1 @@
+LINE Messagin APIのNode-REDのノードです。
