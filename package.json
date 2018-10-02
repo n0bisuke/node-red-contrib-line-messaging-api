@@ -1,12 +1,24 @@
 {
   "name": "node-red-contrib-line-messaging-api",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "line.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/n0bisuke/node-red-contrib-line-messaging-api.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "node-red"     : {
+    "nodes": {
+        "sample": "line.js"
+    }
+  },
+  "keywords": ["line","node-red"],
+  "author": "n0bisuke",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.88.0"
+  }
 }
