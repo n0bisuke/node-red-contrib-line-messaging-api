@@ -1,32 +1,29 @@
 module.exports = function(RED) {
-    var request = require('request');
-    var hostname = 'http://ambidata.io';
 
-    function ambient(n) {
-        RED.nodes.createNode(this,n);
-        this.channelId = n.channelId;
-        this.writeKey = n.writeKey;
+    const line = require('@line/bot-sdk');
+    
+    function LinebotReplyNode(config) {
+        RED.nodes.createNode(this,config);
         var node = this;
+        // line設定作成
+        const lineconfig = {
+            channelAccessToken: config.channelAccessToken,
+            channelSecret: config.channelSecret
+        }
+        // lineクライアント作成
+        const client = new line.Client(lineconfig);
+        node.on('input', function(msg) {
+            // get line event
+            const line_event = msg.payload.events[0];
+            // get message
+            const received_msg = line_event.message.text;
 
-        this.on('input', function(msg) {
-            var payload = msg.payload;
-            payload.writeKey = node.writeKey;
-            options = { // HTTPパケットの組み立て
-                url: hostname + '/api/v2/channels/' + node.channelId + '/data',
-                headers: {'Content-Type': 'application/json'},
-                body: payload,
-                json: true
-            };
+            // create reply
+            var massage = { type: 'text', text: config.replyMessage };
+            var result = client.replyMessage(line_event.replyToken, massage);
 
-            request.post(options, function(err, res, body) { // HTTP POST
-                if (err) {
-                    node.error(err);
-                    node.status({fill:"red", shape:"ring", text:"ambient send failed"});
-                } else {
-                    node.status({});
-                }
-            });
+            node.send(result);
         });
     }
-    RED.nodes.registerType("Ambient",ambient);
+    RED.nodes.registerType("linebot-reply",LinebotReplyNode);
 }

@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-line-messaging-api",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
   "main": "line.js",
   "repository": {
@@ -10,15 +10,19 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "node-red"     : {
+  "node-red": {
     "nodes": {
       "sample": "line.js"
     }
   },
-  "keywords": ["line","node-red"],
+  "keywords": [
+    "line",
+    "node-red"
+  ],
   "author": "n0bisuke",
   "license": "Apache 2.0",
   "dependencies": {
+    "@line/bot-sdk": "^6.3.0",
     "request": "^2.88.0"
   }
 }

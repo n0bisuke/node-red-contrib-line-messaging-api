@@ -1,50 +1,42 @@
 <script type="text/javascript">
-    RED.nodes.registerType('LINE',{
+    RED.nodes.registerType('LINE Reply Message',{
         category: 'LINE',
         color: '#01B301',
         defaults: {
             name: {value:""},
-            channelId: {value:"",required:true},
-            writeKey: {value:"",required:true},
+            channelAccessToken:{value:""},
+            channelSecret:{value:""},
+            replyMessage:{value:"Hello!"}
         },
         inputs:1,
         outputs:0,
         icon: "arrow-in.png",
         align: "right",
         label: function() {
-            return this.name||"LINE";
+            return this.name||"LINE Reply Message";
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="LINE">
+<script type="text/x-red" data-template-name="LINE Reply Message">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
-        <label for="node-input-channelId"><i class="icon-tag"></i> ChannelId</label>
-        <input type="text" id="node-input-channelId" placeholder="ChannelId">
+        <label for="node-input-channelAccessToken"><i class="icon-tag"></i> AccessToken</label>
+        <input type="text" id="node-input-channelAccessToken" placeholder="ChannelAccessToken">
     </div>
     <div class="form-row">
-        <label for="node-input-writeKey"><i class="icon-tag"></i> WriteKey</label>
-        <input type="text" id="node-input-writeKey" placeholder="WriteKey">
+        <label for="node-input-channelSecret"><i class="icon-tag"></i> Secret</label>
+        <input type="password" id="node-input-channelSecret" placeholder="ChannelSecret">
+    </div>
+    <div class="form-row">
+        <label for="node-input-replyMessage"><i class="icon-tag"></i> ReplyMessage</label>
+        <input type="text" id="node-input-replyMessage" placeholder="ReplyMessage">
     </div>
 </script>
 
 <script type="text/x-red" data-help-name="LINE">
-    <p>Ambientにデーターを送信して可視化する</p>
-    <p>
-        AmbientはIoTクラウドサービスで、センサーデーターを受信し、蓄積し、可視化(グラフ化)します。
-        Ambientの詳細、使い方は<a href="https://ambidata.io">こちら</a>をご覧ください。
-    </p>
-    <p>
-        ワークスペース上のAmbientノードで、AmbientのチャネルIDとライトキーを設定します。
-    </p>
-    <p>
-        データーは<pre>{"d1":データー1, "d2":データー2, ...}</pre>という形式で渡します。
-    </p>
-    <p>
-        チャートは<a href="https://ambidata.io">Ambientサイト</a>で見ることができます。
-    </p>
+    <p>ノードで指定した文字列をLINEに返します</p>
 </script>
