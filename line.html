@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType('Ambient',{
+    RED.nodes.registerType('LINE',{
         category: 'LINE',
         color: '#01B301',
         defaults: {
@@ -17,7 +17,7 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="Ambient">
+<script type="text/x-red" data-template-name="LINE">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -32,7 +32,7 @@
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="Ambient">
+<script type="text/x-red" data-help-name="LINE">
     <p>Ambientにデーターを送信して可視化する</p>
     <p>
         AmbientはIoTクラウドサービスで、センサーデーターを受信し、蓄積し、可視化(グラフ化)します。
