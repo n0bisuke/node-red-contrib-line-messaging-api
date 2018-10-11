@@ -50,8 +50,7 @@ module.exports = (RED) => {
                     // node.tout = setTimeout(function() { setupStream() },15000);
                     // node.status({fill:"red",shape:"ring",text:"twitter.status.failed"});
                     // node.warn(RED._("twitter.errors.unexpectedend"));
-                    node.error(err,'aaaa');
-                    this.status({fill:"red", shape:"ring", text:err});
+                    node.error(err);
                     // throw new Error(result);
                     // msg.payload = result;
                     // node.send(err)
