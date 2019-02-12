@@ -4,8 +4,8 @@ module.exports = (RED) => {
     const axiosBase = require('axios');
 
     const main = function(config){
-        RED.nodes.createNode(this,config);
         const node = this;
+        RED.nodes.createNode(node, config);
         const LINE_TOKEN = config.AccessToken;
         const axios = axiosBase.create({
             baseURL: `https://notify-api.line.me`,

@@ -1,8 +1,10 @@
 module.exports = (RED) => {
     'use strict';
-    const line = require('@line/bot-sdk');
 
-    function LineSimpleReplay(config) {
+    const line = require('@line/bot-sdk');
+    const main = function(config){
+        const node = this;
+        RED.nodes.createNode(node, config);
 
         let lineconfig;
         try {
@@ -16,11 +18,9 @@ module.exports = (RED) => {
         }
 
         const client = new line.Client(lineconfig);
-        RED.nodes.createNode(this,config);
-        const node = this;
 
         node.on('input', async (msg) => {
-            const userId = `Ub159ea3fb8ede0b1b68f8270c16ae301`;
+            const userId = config.targetId;
             try {
                 const res = await client.pushMessage(userId, {
                     type: 'text',
@@ -36,5 +36,5 @@ module.exports = (RED) => {
         });
     }
 
-    RED.nodes.registerType("PushMessage", LineSimpleReplay);
+    RED.nodes.registerType("PushMessage", main);
 }

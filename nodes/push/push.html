@@ -6,11 +6,11 @@
             name: {value:""},
             channelSecret:{value:"", required:true},
             channelAccessToken:{value:"", required:true},
-            pushMessage:{value:""}
+            targetId:{value:"", required:true},
         },
         inputs:1,
         outputs:0,
-        icon: "arrow-in.png",
+        icon: "comment.png",
         align: "right",
         label: function() {
             return this.name||"PushMessage";
@@ -35,8 +35,8 @@
     </div>
 
     <div class="form-row">
-        <label for="node-input-replyMessage"><i class="icon-tag"></i> ReplyMessage</label>
-        <input type="text" id="node-input-replyMessage" placeholder="空の場合はおうむ返しします">
+        <label for="node-input-targetId"><i class="icon-tag"></i> User Id or Group ID</label>
+        <input type="text" id="node-input-targetId" placeholder="User Id or Group ID">
     </div>
 </script>
 

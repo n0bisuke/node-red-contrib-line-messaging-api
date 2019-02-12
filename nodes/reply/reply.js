@@ -1,7 +1,11 @@
 module.exports = (RED) => {
-    const line = require('@line/bot-sdk');
+    'use strict';
 
-    function LineSimpleReplay(config) {
+    const line = require('@line/bot-sdk');
+    const main = function(config){
+        const node = this;
+        RED.nodes.createNode(node, config);
+
         let lineconfig;
         try {
             lineconfig = require('../../env');
@@ -15,9 +19,8 @@ module.exports = (RED) => {
         if(lineconfig.channelSecret === '' || lineconfig.channelAccessToken === '') {
             this.error(RED._("token not found"));
         }
+
         const client = new line.Client(lineconfig);
-        RED.nodes.createNode(this,config);
-        const node = this;
 
         //メインの処理
         const handleEvent = (event) => {
@@ -43,20 +46,10 @@ module.exports = (RED) => {
                     node.send(msg)
                 }).catch(err => {
                     console.log(err);
-                    // throw new Error(result);
-                    // this.error(RED._("twitter.errors.missingcredentials"));
-                    // node.status({fill:"red", shape:"dot", text:" "});
-                    // node.warn(RED._("twitter.errors.unexpectedend"));
-                    // node.tout = setTimeout(function() { setupStream() },15000);
-                    // node.status({fill:"red",shape:"ring",text:"twitter.status.failed"});
-                    // node.warn(RED._("twitter.errors.unexpectedend"));
                     node.error(err);
-                    // throw new Error(result);
-                    // msg.payload = result;
-                    // node.send(err)
                 });
         });
     }
 
-    RED.nodes.registerType("ReplyMessage", LineSimpleReplay);
+    RED.nodes.registerType("ReplyMessage", main);
 }
