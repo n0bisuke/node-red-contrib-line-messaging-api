@@ -1,0 +1,45 @@
+<script>
+    RED.nodes.registerType('ReplyMessage',{
+        category: 'LINE',
+        color: '#01B301',
+        defaults: {
+            name: {value:""},
+            channelSecret:{value:"", required:true},
+            channelAccessToken:{value:"", required:true},
+            replyMessage:{value:""}
+        },
+        inputs:1,
+        outputs:0,
+        icon: "arrow-in.png",
+        align: "right",
+        label: function() {
+            return this.name||"ReplyMessage";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="ReplyMessage">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-channelSecret"><i class="icon-tag"></i> Secret</label>
+        <input type="text" id="node-input-channelSecret" placeholder="ChannelSecret">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-channelAccessToken"><i class="icon-tag"></i> AccessToken</label>
+        <input type="text" id="node-input-channelAccessToken" placeholder="ChannelAccessToken">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-replyMessage"><i class="icon-tag"></i> ReplyMessage</label>
+        <input type="text" id="node-input-replyMessage" placeholder="空の場合はおうむ返しします">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="ReplyMessage">
+    <p>A simple node that converts the message payloads into all ReplyMessage characters</p>
+</script>

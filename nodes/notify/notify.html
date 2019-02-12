@@ -1,0 +1,36 @@
+<script>
+    RED.nodes.registerType('Notify',{
+        category: 'LINE',
+        color: '#1ad823',
+        defaults: {
+            name: {value:""},
+            AccessToken:{value:"", required:true}
+        },
+        inputs:1,
+        outputs:0,
+        icon: "comment.png",
+        align: "right",
+        label: function() {
+            return this.name||"Notify";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="Notify">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-AccessToken">
+            <i class="icon-tag"></i>
+            LINE Notify AccessToken
+        </label>
+        <input type="text" id="node-input-AccessToken" placeholder="LINE Notify AccessToken">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="Notify">
+    <p><a href="https://notify-bot.line.me/my/">LINE Notify</a>でアクセストークンを取得して設定して下さい。</p>
+</script>
