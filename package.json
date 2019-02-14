@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-line-messaging-api",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "LINE Messaging APIです",
   "main": "line.js",
   "repository": {

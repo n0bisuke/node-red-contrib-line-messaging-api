@@ -17,9 +17,27 @@ LINE Messagin APIを利用できるNode-REDのノードです。
 npm i node-red-contrib-line-messaging-api
 ```
 
+or
+
+AdminタブからInstall
+
 ## 利用イメージ
 
-![](https://i.gyazo.com/ece400e3e30039d736c328ce363fd8ac.png)
+### Reply Message
+
+* HTTP inノードで受け取る
+* Functionノードでハンドリング
+* Reply Messageノードでリプライ
+
+![](https://i.gyazo.com/d3df3a28e010b008043ed80ae6a672ea.gif)
+
+### Push Message
+
+![](https://i.gyazo.com/1562a3e4539469515c798d9e3c50d052.gif)
+
+### LINE Notify
+
+![](https://i.gyazo.com/e64db6a7ee48cea43ed3c70b5fd2f05f.gif)
 
 ## LINK
 
