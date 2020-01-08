@@ -25,7 +25,7 @@
   "author": "n0bisuke",
   "license": "Apache 2.0",
   "dependencies": {
-    "@line/bot-sdk": "^6.3.0",
+    "@line/bot-sdk": "^6.8.4",
     "express": "^4.16.4"
   }
 }
