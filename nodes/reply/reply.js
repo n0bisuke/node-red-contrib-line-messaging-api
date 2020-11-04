@@ -24,14 +24,26 @@ module.exports = (RED) => {
 
         //メインの処理
         const handleEvent = (event) => {
-            if (event.type !== 'message' || event.message.type !== 'text') {
-              return Promise.resolve(null);
+            if (event.type !== 'message') {
+                return Promise.resolve(null);
             }
-    
-            return client.replyMessage(event.replyToken, {
-              type: 'text',
-              text: config.replyMessage || event.message.text //実際に返信の言葉を入れる箇所
-            });
+
+            if (event.message.type === 'text') {
+                return client.replyMessage(event.replyToken, {
+                    type: 'text',
+                    text: config.replyMessage || event.message.text //実際に返信の言葉を入れる箇所
+                  });
+            } else if (event.message.type === 'flex') {
+                const message_text = event.message.altText;
+
+                return client.replyMessage(event.replyToken, {
+                    type: "flex",
+                    altText: message_text,
+                    contents: event.message.text
+                });
+            } else {
+                return Promise.resolve(null);
+            }
         }
 
         node.on('input', (msg) => {
