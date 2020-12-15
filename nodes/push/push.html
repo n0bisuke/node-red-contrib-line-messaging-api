@@ -4,9 +4,11 @@
         color: '#01B301',
         defaults: {
             name: {value:""},
-            channelSecret:{value:"", required:true},
-            channelAccessToken:{value:"", required:true},
-            targetId:{value:"", required:true},
+        },
+        credentials: {
+            channelSecret: {type:"password", required:true},
+            channelAccessToken: {type:"password", required:true},
+            targetId:{type:"password", required:true},
         },
         inputs:1,
         outputs:0,
