@@ -1,24 +1,23 @@
 <script>
-    RED.nodes.registerType('PushMessage',{
+    RED.nodes.registerType('BloadcastMessage',{
         category: 'LINE',
         color: '#01B301',
         defaults: {
             name: {value:""},
             channelSecret:{value:"", required:true},
-            channelAccessToken:{value:"", required:true},
-            targetId:{value:"", required:true},
+            channelAccessToken:{value:"", required:true}
         },
         inputs:1,
-        outputs:0,
+        outputs:1,
         icon: "comment.png",
         align: "right",
         label: function() {
-            return this.name||"PushMessage";
+            return this.name||"BloadcastMessage";
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="PushMessage">
+<script type="text/x-red" data-template-name="BloadcastMessage">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -34,12 +33,8 @@
         <input type="password" id="node-input-channelAccessToken" placeholder="ChannelAccessToken">
     </div>
 
-    <div class="form-row">
-        <label for="node-input-targetId"><i class="icon-tag"></i> User Id or Group ID</label>
-        <input type="text" id="node-input-targetId" placeholder="User Id or Group ID">
-    </div>
 </script>
 
-<script type="text/x-red" data-help-name="PushMessage">
-    <p>Send a push message by specifying the user ID or group ID.</p>
+<script type="text/x-red" data-help-name="BloadcastMessage">
+    <p>Send a push message to all your BOT friends.</p>
 </script>
