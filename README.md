@@ -35,6 +35,12 @@ AdminタブからInstall
 
 ![](https://i.gyazo.com/1562a3e4539469515c798d9e3c50d052.gif)
 
+### Bloadcast Message
+
+* 友達全員にメッセージ配信
+
+![](https://i.gyazo.com/ef7c655a74e85e23db5ee156e5490e15.png)
+
 ### LINE Notify
 
 ![](https://i.gyazo.com/e64db6a7ee48cea43ed3c70b5fd2f05f.gif)
@@ -47,5 +53,6 @@ AdminタブからInstall
 
 ## release
 
+* 2020/12/17: Bloadcast Messageに対応、Reply MessageがFlex Messageに対応（thanks [@gaomar](https://github.com/gaomar)）
 * 2019/2/13: PUSH MessageとLINE Notify対応
 * 2018/10/11: 現状は簡単なリプライのみ実装されています。
