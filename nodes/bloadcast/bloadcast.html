@@ -4,11 +4,15 @@
         color: '#01B301',
         defaults: {
             name: {value:""},
-            channelSecret:{value:"", required:true},
-            channelAccessToken:{value:"", required:true}
         },
-        inputs:1,
-        outputs:1,
+
+        credentials: {
+            channelSecret:{value:"", type: "password", required:true},
+            channelAccessToken:{value:"", type: "password", required:true}
+        },
+
+        inputs: 1,
+        outputs: 1,
         icon: "comment.png",
         align: "right",
         label: function() {

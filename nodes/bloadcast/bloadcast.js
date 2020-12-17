@@ -11,7 +11,7 @@ module.exports = (RED) => {
         try {
             lineconfig = require('../../env');
         } catch (error) {
-            lineconfig = { channelSecret: config.channelSecret, channelAccessToken: config.channelAccessToken};
+            lineconfig = { channelSecret: node.credentials.channelSecret, channelAccessToken: node.credentials.channelAccessToken};
         }
 
         if(lineconfig.channelSecret === '' || lineconfig.channelAccessToken === '') {
@@ -42,5 +42,10 @@ module.exports = (RED) => {
         });
     }
 
-    RED.nodes.registerType("BloadcastMessage", main);
+    RED.nodes.registerType("BloadcastMessage", main, {
+        credentials: {
+            channelSecret: {type:"password"},
+            channelAccessToken: {type:"password"},
+        },
+    });
 }
