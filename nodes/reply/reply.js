@@ -11,8 +11,8 @@ module.exports = (RED) => {
             lineconfig = require('../../env');
         } catch (error) {
             lineconfig = {
-                channelSecret: config.channelSecret,
-                channelAccessToken: config.channelAccessToken
+                channelSecret: node.credentials.channelSecret,
+                channelAccessToken: node.credentials.channelAccessToken
             };
         }
 
@@ -63,5 +63,10 @@ module.exports = (RED) => {
         });
     }
 
-    RED.nodes.registerType("ReplyMessage", main);
+    RED.nodes.registerType("ReplyMessage", main, {
+        credentials: {
+            channelSecret: { type:"password" },
+            channelAccessToken: { type:"password" },
+        }
+    });
 }

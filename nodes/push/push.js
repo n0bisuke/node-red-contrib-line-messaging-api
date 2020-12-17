@@ -10,7 +10,7 @@ module.exports = (RED) => {
         try {
             lineconfig = require('../../env');
         } catch (error) {
-            lineconfig = { channelSecret: config.channelSecret, channelAccessToken: config.channelAccessToken};
+            lineconfig = { channelSecret: node.credentials.channelSecret, channelAccessToken: node.credentials.channelAccessToken};
         }
 
         if(lineconfig.channelSecret === '' || lineconfig.channelAccessToken === '') {
@@ -20,7 +20,7 @@ module.exports = (RED) => {
         const client = new line.Client(lineconfig);
 
         node.on('input', async (msg) => {
-            const userId = config.targetId;
+            const userId = node.credentials.targetId;
             try {
                 const res = await client.pushMessage(userId, {
                     type: 'text',
@@ -36,5 +36,11 @@ module.exports = (RED) => {
         });
     }
 
-    RED.nodes.registerType("PushMessage", main);
+    RED.nodes.registerType("PushMessage", main, {
+        credentials: {
+            channelSecret: {type:"password"},
+            channelAccessToken: {type:"password"},
+            targetId: {type:"password"},
+        },
+    });
 }
