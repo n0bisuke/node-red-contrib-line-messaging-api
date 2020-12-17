@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-line-messaging-api",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "LINE Messaging APIです",
   "main": "line.js",
   "repository": {
@@ -16,6 +16,7 @@
       "ReplyMessage": "./nodes/reply/reply.js",
       "PushMessage": "./nodes/push/push.js",
       "BloadcastMessage": "./nodes/bloadcast/bloadcast.js",
+      "Limit": "./nodes/limit/limit.js",
       "Notify": "./nodes/notify/notify.js"
     }
   },

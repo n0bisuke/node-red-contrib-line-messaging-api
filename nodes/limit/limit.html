@@ -1,0 +1,38 @@
+<script>
+    RED.nodes.registerType('Limit',{
+        category: 'LINE',
+        color: '#01B301',
+        defaults: {
+            name: {value:""},
+        },
+        credentials: {
+            AccessToken: { type: "password", required: true }
+        },
+        inputs:1,
+        outputs:1,
+        icon: "comment.png",
+        align: "right",
+        label: function() {
+            return this.name||"Limit";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="Limit">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-AccessToken">
+            <i class="icon-tag"></i>
+            LINE Limit AccessToken
+        </label>
+        <input type="password" id="node-input-AccessToken" placeholder="LINE Limit AccessToken">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="Limit">
+    <p>当月の送信メッセージのリミットを教えてくれます。</p>
+</script>
