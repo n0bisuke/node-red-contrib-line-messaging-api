@@ -41,6 +41,12 @@ module.exports = (RED) => {
                     altText: message_text,
                     contents: event.message.text
                 });
+            } else if (event.message.type === 'image') {
+                return client.replyMessage(event.replyToken, {
+                    type: 'image',
+                    originalContentUrl: event.message.originalContentUrl,
+                    previewImageUrl: event.message.previewImageUrl || event.message.originalContentUrl
+                });
             } else {
                 return Promise.resolve(null);
             }
