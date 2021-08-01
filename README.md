@@ -82,6 +82,7 @@ return msg;
 
 ## release
 
-* 2020/12/17: Bloadcast Messageに対応、Reply MessageがFlex Messageに対応（thanks [@gaomar](https://github.com/gaomar)）
-* 2019/2/13: PUSH MessageとLINE Notify対応
-* 2018/10/11: 現状は簡単なリプライのみ実装されています。
+- 2021/8/1: Reply Messageが画像に対応（thanks [@ukkz](https://github.com/ukkz)）
+- 2020/12/17: Bloadcast Messageに対応、Reply MessageがFlex Messageに対応（thanks [@gaomar](https://github.com/gaomar)）
+- 2019/2/13: PUSH MessageとLINE Notify対応
+- 2018/10/11: 現状は簡単なリプライのみ実装されています。
