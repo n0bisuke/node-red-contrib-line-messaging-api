@@ -6,10 +6,14 @@ LINE Messagin APIを利用できるNode-REDのノードです。
 
 以下のAPIを利用できます。
 
-* LINE Messaging API
-    * Reply Message
-    * Push Message
-* LINE Notify
+- LINE Messaging API
+    - Reply Message
+        - text
+        - image
+        - flex
+    - Push Message
+    - BloadCast Message
+- LINE Notify
 
 ## インストール
 
@@ -25,9 +29,34 @@ AdminタブからInstall
 
 ### Reply Message
 
-* HTTP inノードで受け取る
-* Functionノードでハンドリング
-* Reply Messageノードでリプライ
+- 1. HTTP inノードで受け取る
+
+    postで受けます。
+
+- 2. Functionノードでハンドリング
+
+■テキスト例
+
+```js
+if (msg.payload.events[0].message.text == '夏') {
+    // 「夏」を受信したら「暑い」と返事する
+    msg.payload.events[0].message.text = '暑い';
+} else {
+    // それ以外を受信したら「わかりません」と返事する
+    msg.payload.events[0].message.text = 'わかりません';
+}
+return msg;
+```
+
+■画像例
+
+```js
+msg.payload.events[0].message.originalContentUrl = `https://pbs.twimg.com/profile_images/1165566424699457537/IYBnJ1i5_400x400.jpg`
+
+return msg;
+```
+
+- 3. Reply Messageノードでリプライ
 
 ![](https://i.gyazo.com/d3df3a28e010b008043ed80ae6a672ea.gif)
 
