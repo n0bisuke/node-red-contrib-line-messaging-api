@@ -16,13 +16,13 @@ module.exports = (RED) => {
             };
         }
 
-        if(lineconfig.channelSecret === '' || lineconfig.channelAccessToken === '') {
-            this.error(RED._("token not found"));
+        if (lineconfig.channelSecret === '' || lineconfig.channelAccessToken === '') {
+            this.error(RED._('token not found'));
         }
 
         const client = new line.Client(lineconfig);
 
-        //メインの処理
+        // メインの処理
         const handleEvent = (event) => {
             if (event.type !== 'message') {
                 return Promise.resolve(null);
@@ -31,13 +31,13 @@ module.exports = (RED) => {
             if (event.message.type === 'text') {
                 return client.replyMessage(event.replyToken, {
                     type: 'text',
-                    text: config.replyMessage || event.message.text //実際に返信の言葉を入れる箇所
+                    text: config.replyMessage || event.message.text // 実際に返信の言葉を入れる箇所
                   });
             } else if (event.message.type === 'flex') {
                 const message_text = event.message.altText;
 
                 return client.replyMessage(event.replyToken, {
-                    type: "flex",
+                    type: 'flex',
                     altText: message_text,
                     contents: event.message.text
                 });
@@ -69,10 +69,10 @@ module.exports = (RED) => {
         });
     }
 
-    RED.nodes.registerType("ReplyMessage", main, {
+    RED.nodes.registerType('ReplyMessage', main, {
         credentials: {
-            channelSecret: { type:"password" },
-            channelAccessToken: { type:"password" },
+            channelSecret: { type:'password' },
+            channelAccessToken: { type:'password' },
         }
     });
 }
