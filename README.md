@@ -7,10 +7,7 @@ LINE Messagin APIを利用できるNode-REDのノードです。
 以下のAPIを利用できます。
 
 - LINE Messaging API
-    - Reply Message
-        - text
-        - image
-        - flex
+    - Webhook & Reply Message
     - Push Message
     - BloadCast Message
 - LINE Notify
@@ -27,38 +24,13 @@ AdminタブからInstall
 
 ## 利用イメージ
 
-### Reply Message
+### Webhook & Reply Message
 
-- 1. HTTP inノードで受け取る
-
-    postで受けます。
-
-- 2. Functionノードでハンドリング
-
-■テキスト例
-
-```js
-if (msg.payload.events[0].message.text == '夏') {
-    // 「夏」を受信したら「暑い」と返事する
-    msg.payload.events[0].message.text = '暑い';
-} else {
-    // それ以外を受信したら「わかりません」と返事する
-    msg.payload.events[0].message.text = 'わかりません';
-}
-return msg;
-```
-
-■画像例
-
-```js
-msg.payload.events[0].message.originalContentUrl = `https://pbs.twimg.com/profile_images/1165566424699457537/IYBnJ1i5_400x400.jpg`
-
-return msg;
-```
-
-- 3. Reply Messageノードでリプライ
-
-![](https://i.gyazo.com/d3df3a28e010b008043ed80ae6a672ea.gif)
+1. Webhookノードを配置し、ダブルクリックで設定を開き、指定した `/path` と自身のホスト名の組み合わせ（Webhook URL）を、LINE Developersであらかじめ作成したMessaging APIに登録します。
+2. ReplyMessageノードを配置し、チャネルのシークレットとアクセストークンを設定します。
+3. WebhookノードとReplyMessageノードを接続してLINEにメッセージを送るとオウム返しBotができます。  
+  [![Image from Gyazo](https://i.gyazo.com/7da2dbecfc69515edf852cf7a26d9196.gif)](https://gyazo.com/7da2dbecfc69515edf852cf7a26d9196)
+4. WebhookノードとReplyMessageノードの中間で `msg.payload` をうまく作成すると様々なメッセージが送れます。文字列を指定すると通常のテキストメッセージに、[LINEで定義されているメッセージオブジェクト](https://developers.line.biz/ja/reference/messaging-api/#message-objects)を指定すればそのメッセージを返信することができます。
 
 ### Push Message
 
