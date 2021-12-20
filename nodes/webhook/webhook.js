@@ -144,11 +144,13 @@ module.exports = function (RED) {
                     req.body.events.forEach(event => {
                         node.send({
                             _msgid: msgid,
-                            _events: req.body.events, // 生イベント配列
                             req: req,
                             res: createResponseWrapper(node, res),
-                            destination: req.body.destination,
-                            event: event, // 個別のイベント
+                            line: {
+                                destination: req.body.destination,
+                                event: event, // 個別のイベント
+                                events: req.body.events, // 生イベント配列
+                            },
                             payload: eventToString(event)
                         });
                     });
