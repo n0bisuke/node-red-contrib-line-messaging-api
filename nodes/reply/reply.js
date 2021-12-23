@@ -16,13 +16,13 @@ module.exports = (RED) => {
             };
         }
 
-        if(lineconfig.channelSecret === '' || lineconfig.channelAccessToken === '') {
-            this.error(RED._("token not found"));
+        if (lineconfig.channelSecret === '' || lineconfig.channelAccessToken === '') {
+            this.error(RED._('token not found'));
         }
 
         const client = new line.Client(lineconfig);
 
-        //メインの処理
+        // 旧仕様
         const handleEvent = (event) => {
             if (event.type !== 'message') {
                 return Promise.resolve(null);
@@ -31,13 +31,13 @@ module.exports = (RED) => {
             if (event.message.type === 'text') {
                 return client.replyMessage(event.replyToken, {
                     type: 'text',
-                    text: config.replyMessage || event.message.text //実際に返信の言葉を入れる箇所
-                  });
+                    text: config.replyMessage || event.message.text // 実際に返信の言葉を入れる箇所
+                });
             } else if (event.message.type === 'flex') {
                 const message_text = event.message.altText;
 
                 return client.replyMessage(event.replyToken, {
-                    type: "flex",
+                    type: 'flex',
                     altText: message_text,
                     contents: event.message.text
                 });
@@ -52,27 +52,59 @@ module.exports = (RED) => {
             }
         }
 
-        node.on('input', (msg) => {
-            Promise
-                .all(msg.payload.events.map(handleEvent))
-                .then(result => {
-                    // [{}]が返ってきてる
-                    if (result.length === 1 && 0 === Object.keys(result[0]).length) {
-                        result = {status: 200, message: 'Success'}
-                    }
-                    msg.payload = result;
-                    node.send(msg)
-                }).catch(err => {
-                    console.log(err);
-                    node.error(err);
+        // 新仕様
+        const reply = (msg) => {
+            if (!msg.line || !msg.line.event || !msg.line.event.type) {
+                throw 'no valid LINE event found within msg';
+            } else if (!msg.line.event.replyToken) {
+                throw 'no replyable LINE event received';
+            } else if (!msg.payload) {
+                throw 'reply content (msg.payload) is empty';
+            } else if (typeof msg.payload === 'object' && msg.payload.type) {
+                // payloadがオブジェクトの場合はメッセージオブジェクト扱いで送信される
+                return client.replyMessage(msg.line.event.replyToken, msg.payload);
+            } else {
+                // payloadがそれ以外なら強制的に文字列に変換しテキストメッセージ扱いで送信する
+                return client.replyMessage(msg.line.event.replyToken, {
+                    type: 'text',
+                    text: config.replyMessage || String(msg.payload)
                 });
+            }
+        }
+
+        node.on('input', async (msg) => {
+            if (msg.line && msg.line.event) {
+                // 新仕様
+                try {
+                    const result = await reply(msg);
+                    console.info(result);
+                } catch (err) {
+                    console.warn(err);
+                    node.error(err);
+                }
+            } else if (msg.payload.events) {
+                // 旧仕様
+                Promise
+                    .all(msg.payload.events.map(handleEvent))
+                    .then(result => {
+                        // [{}]が返ってきてる
+                        if (result.length === 1 && 0 === Object.keys(result[0]).length) {
+                            result = { status: 200, message: 'Success' }
+                        }
+                        msg.payload = result;
+                        node.send(msg)
+                    }).catch(err => {
+                        console.log(err);
+                        node.error(err);
+                    });
+            }
         });
     }
 
-    RED.nodes.registerType("ReplyMessage", main, {
+    RED.nodes.registerType('ReplyMessage', main, {
         credentials: {
-            channelSecret: { type:"password" },
-            channelAccessToken: { type:"password" },
+            channelSecret: { type:'password' },
+            channelAccessToken: { type:'password' },
         }
     });
 }

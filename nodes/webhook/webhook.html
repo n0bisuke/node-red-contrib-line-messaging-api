@@ -1,0 +1,59 @@
+<script type="text/javascript">
+    RED.nodes.registerType('Webhook', {
+        category: 'LINE',
+        color: '#01B301',
+        defaults: {
+            name: { value: '' },
+            url: { value: '', required: true }
+        },
+        inputs: 0,
+        outputs: 1,
+        icon: 'inject.svg',
+        paletteLabel: 'Webhook',
+        label: function () {
+            if (this.name) {
+                return this.name;
+            } else if (this.url) {
+                let root = RED.settings.httpNodeRoot;
+                if (root.slice(-1) != '/') {
+                    root = root + '/';
+                }
+                if (this.url.charAt(0) == '/') {
+                    root += this.url.slice(1);
+                } else {
+                    root += this.url;
+                }
+                return root;
+            } else {
+                return 'Webhook';
+            }
+        },
+        oneditprepare: function () {
+            let root = RED.settings.httpNodeRoot;
+            if (root.slice(-1) == '/') {
+                root = root.slice(0, -1);
+            }
+            if (root == '') {
+                $('#node-input-tip').hide();
+            } else {
+                $('#node-input-path').html(root);
+                $('#node-input-tip').show();
+            }
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="Webhook">
+    <div class="form-row">
+        <label for="node-input-url"><i class="fa fa-globe"></i> Path</label>
+        <input id="node-input-url" type="text" placeholder="/webhook">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input id="node-input-name" type="text" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="Webhook">
+    <p>A webhook endpoint node that receives from LINE platform when fire any events occurred.</p>
+</script>
