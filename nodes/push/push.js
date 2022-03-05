@@ -20,7 +20,7 @@ module.exports = (RED) => {
         const client = new line.Client(lineconfig);
 
         node.on('input', async (msg, send, done) => {
-            const userId = node.credentials.targetId;
+            const userId = msg.targetId || node.credentials.targetId;
             try {
                 const res = await client.pushMessage(userId, {
                     type: 'text',
