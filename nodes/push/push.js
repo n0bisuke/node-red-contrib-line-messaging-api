@@ -19,7 +19,7 @@ module.exports = (RED) => {
 
         const client = new line.Client(lineconfig);
 
-        node.on('input', async (msg) => {
+        node.on('input', async (msg, send, done) => {
             const userId = node.credentials.targetId;
             try {
                 const res = await client.pushMessage(userId, {
@@ -28,10 +28,11 @@ module.exports = (RED) => {
                 });
                 
                 msg.payload = res.data;
-                node.send(msg);
+                send(msg);
+                done();
             } catch (error) {
                 console.log(error);
-                node.error(error);
+                done(error);
             }
         });
     }
