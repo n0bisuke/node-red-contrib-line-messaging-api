@@ -15,7 +15,7 @@ module.exports = (RED) => {
             }
         });
 
-        node.on('input', async (msg) => {
+        node.on('input', async (msg, send, done) => {
             const mes = msg.payload;
             try {
                 const resLimit = await axios.get(`/`);
@@ -29,9 +29,11 @@ module.exports = (RED) => {
                 }
 
                 msg.payload = output;
-                node.send(msg);
+                send(msg);
+                done();
             } catch (error) {
                 console.log(error);
+                done(error);
             }
 
         });

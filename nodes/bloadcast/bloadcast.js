@@ -20,7 +20,7 @@ module.exports = (RED) => {
 
         const client = new line.Client(lineconfig);
 
-        node.on('input', async (msg) => {
+        node.on('input', async (msg, send, done) => {
 
             try {
                 const res = await client.broadcast([{
@@ -34,10 +34,11 @@ module.exports = (RED) => {
                 };
 
                 msg.payload = output;
-                node.send(msg);
+                send(msg);
+                done();
             } catch (error) {
                 console.log(error);
-                node.error(error);
+                done(error);
             }
         });
     }

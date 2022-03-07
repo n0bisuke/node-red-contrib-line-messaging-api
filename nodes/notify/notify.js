@@ -15,14 +15,16 @@ module.exports = (RED) => {
             }
         });
 
-        node.on('input', async (msg) => {
+        node.on('input', async (msg, send, done) => {
             const mes = msg.payload;
             try {
                 const res = await axios.post(`/api/notify?message=${encodeURI(mes)}`);
                 msg.payload = res.data;
-                node.send(msg);                
+                send(msg);
+                done();        
             } catch (error) {
                 console.log(error);
+                done(error);
             }
 
         });

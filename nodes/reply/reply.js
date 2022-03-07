@@ -72,15 +72,17 @@ module.exports = (RED) => {
             }
         }
 
-        node.on('input', async (msg) => {
+        node.on('input', async (msg, send, done) => {
             if (msg.line && msg.line.event) {
                 // 新仕様
                 try {
                     const result = await reply(msg);
                     console.info(result);
+                    send(msg);
+                    done();
                 } catch (err) {
                     console.warn(err);
-                    node.error(err);
+                    done(err);
                 }
             } else if (msg.payload.events) {
                 // 旧仕様
@@ -92,10 +94,11 @@ module.exports = (RED) => {
                             result = { status: 200, message: 'Success' }
                         }
                         msg.payload = result;
-                        node.send(msg)
+                        send(msg);
+                        done();
                     }).catch(err => {
                         console.log(err);
-                        node.error(err);
+                        done(err);
                     });
             }
         });
