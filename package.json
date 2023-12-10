@@ -18,7 +18,8 @@
       "PushMessage": "./nodes/push/push.js",
       "BloadcastMessage": "./nodes/bloadcast/bloadcast.js",
       "Limit": "./nodes/limit/limit.js",
-      "Notify": "./nodes/notify/notify.js"
+      "Notify": "./nodes/notify/notify.js",
+      "Notify_new": "./nodes/_new/notify/notify.js"
     }
   },
   "keywords": [],
