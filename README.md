@@ -46,6 +46,28 @@ AdminタブからInstall
 
 ![](https://i.gyazo.com/e64db6a7ee48cea43ed3c70b5fd2f05f.gif)
 
+### LINE Notify_new
+
+過去のものとAPIは変わってないですが、オプション指定ができます。
+
+> ![](https://i.gyazo.com/b9d963d9357e26c86d4d771b16726195.png)
+
+template nodeにJSONを設定してみてください。
+
+> ![](https://i.gyazo.com/d4f040678957fffbfb6b074966051aa1.png)
+
+- 画像とスタンプも送る例
+
+```
+{
+    "stickerPackageId": "446",
+    "stickerId": "1988",
+    "message": "{{payload}}",
+    "imageThumbnail": "https://i.gyazo.com/a84c585225af440bd0d5fff881152792.png",
+    "imageFullsize": "https://i.gyazo.com/a84c585225af440bd0d5fff881152792.png"
+}
+```
+
 ## LINK
 
 * [NodeRED](https://flows.nodered.org/node/node-red-contrib-line-messaging-api)
@@ -54,6 +76,7 @@ AdminタブからInstall
 
 ## release
 
+- 2023/12/11: Notify_newを追加。スタンプや画像も送れるように。
 - 2021/8/1: Reply Messageが画像に対応（thanks [@ukkz](https://github.com/ukkz)）
 - 2020/12/17: Bloadcast Messageに対応、Reply MessageがFlex Messageに対応（thanks [@gaomar](https://github.com/gaomar)）
 - 2019/2/13: PUSH MessageとLINE Notify対応
