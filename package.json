@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-line-messaging-api",
-  "version": "0.1.11",
+  "version": "0.1.16",
   "description": "Node-REDでLINE Botが作れます。",
   "main": "line.js",
   "repository": {
@@ -18,10 +18,11 @@
       "PushMessage": "./nodes/push/push.js",
       "BloadcastMessage": "./nodes/bloadcast/bloadcast.js",
       "Limit": "./nodes/limit/limit.js",
-      "Notify": "./nodes/notify/notify.js"
+      "Notify": "./nodes/notify/notify.js",
+      "Notify_new": "./nodes/_new/notify/notify.js"
     }
   },
-  "keywords": [],
+  "keywords": ["node-red"],
   "author": "n0bisuke",
   "license": "Apache 2.0",
   "dependencies": {
