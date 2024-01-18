@@ -1,36 +1,34 @@
 <script>
-    RED.nodes.registerType('PushMessage',{
+    RED.nodes.registerType('PushMessage_New',{
         category: 'LINE',
         color: '#01B301',
         defaults: {
             name: {value:""},
         },
         credentials: {
-            channelSecret: {type:"password", required:true},
+            // channelSecret: {type:"password", required:true},
             channelAccessToken: {type:"password", required:true},
             targetId:{type:"password", required:true},
         },
         inputs: 1,
-        outputs: 0,
+        outputs: 1,
         icon: "comment.png",
         align: "right",
-        paletteLabel: 'Push',
-        label: function() {
-            return this.name || 'PushMessage';
-        }
+        paletteLabel: 'Push_New',
+        label: () => this.name || 'PushMessage_New'
     });
 </script>
 
-<script type="text/x-red" data-template-name="PushMessage">
+<script type="text/x-red" data-template-name="PushMessage_New">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 
-    <div class="form-row">
+    <!-- <div class="form-row">
         <label for="node-input-channelSecret"><i class="icon-tag"></i> Secret</label>
         <input type="password" id="node-input-channelSecret" placeholder="ChannelSecret">
-    </div>
+    </div> -->
 
     <div class="form-row">
         <label for="node-input-channelAccessToken"><i class="icon-tag"></i> AccessToken</label>
@@ -41,11 +39,8 @@
         <label for="node-input-targetId"><i class="icon-tag"></i> User Id or Group ID</label>
         <input type="text" id="node-input-targetId" placeholder="User Id or Group ID">
     </div>
-
-    <p>こちらのノードは旧バージョンになります。Newバージョンの利用を検討してください。</p>
-    <p>This node is the old version, please consider using the New version.</p>
 </script>
 
-<script type="text/x-red" data-help-name="PushMessage">
+<script type="text/x-red" data-help-name="PushMessage_New">
     <p>Send a push message by specifying the user ID or group ID.</p>
 </script>

@@ -1,5 +1,5 @@
 <script>
-    RED.nodes.registerType('Notify_New',{
+    RED.nodes.registerType('Notify_New', {
         category: 'LINE',
         color: '#1ad823',
         defaults: {
@@ -9,12 +9,10 @@
             AccessToken: { type: "password", required: true }
         },
         inputs:1,
-        outputs:0,
+        outputs:1,
         icon: "comment.png",
         align: "right",
-        label: function() {
-            return this.name||"Notify_New";
-        }
+        label: () => this.name || 'Notify_New',
     });
 </script>
 
@@ -33,6 +31,6 @@
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="Notify">
+<script type="text/x-red" data-help-name="Notify_New">
     <p><a href="https://notify-bot.line.me/my/">LINE Notify</a>でアクセストークンを取得して設定して下さい。</p>
 </script>
