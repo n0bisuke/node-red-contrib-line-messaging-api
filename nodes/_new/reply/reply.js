@@ -53,15 +53,20 @@ module.exports = (RED) => {
         }
 
         // 新仕様
-        const reply = (msg) => {
+        const reply = async (msg) => {
+            console.log(typeof msg.payload, msg.payload);
             if (!msg.line || !msg.line.event || !msg.line.event.type) {
                 throw 'no valid LINE event found within msg';
             } else if (!msg.line.event.replyToken) {
                 throw 'no replyable LINE event received';
             } else if (!msg.payload) {
                 throw 'reply content (msg.payload) is empty';
-            } else if (typeof msg.payload === 'object' && msg.payload.type) {
-                // payloadがオブジェクトの場合はメッセージオブジェクト扱いで送信される
+            } else if(typeof msg.payload === 'object' && Array.isArray(msg.payload) && msg.payload.length !== 0 && msg.payload[0].type){
+                // payloadが配列かつメッセージオブジェクトが中身の場合
+                return client.replyMessage(msg.line.event.replyToken, msg.payload);                
+            }
+            else if (typeof msg.payload === 'object' && msg.payload.type) {
+                // payloadがオブジェクトの場合
                 return client.replyMessage(msg.line.event.replyToken, msg.payload);
             } else {
                 // payloadがそれ以外なら強制的に文字列に変換しテキストメッセージ扱いで送信する
@@ -76,9 +81,8 @@ module.exports = (RED) => {
             if (msg.line && msg.line.event) {
                 // 新仕様
                 try {
-                    const result = await reply(msg);
-                    console.info(result);
-                    send(msg);
+                    msg.payload = await reply(msg);
+                    send(msg); //次のノードへ
                     done();
                 } catch (err) {
                     console.warn(err);
@@ -104,7 +108,7 @@ module.exports = (RED) => {
         });
     }
 
-    RED.nodes.registerType('ReplyMessage', main, {
+    RED.nodes.registerType('ReplyMessage_New', main, {
         credentials: {
             channelSecret: { type:'password' },
             channelAccessToken: { type:'password' },

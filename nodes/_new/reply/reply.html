@@ -1,5 +1,5 @@
 <script>
-    RED.nodes.registerType('ReplyMessage',{
+    RED.nodes.registerType('ReplyMessage_New',{
         category: 'LINE',
         color: '#01B301',
         defaults: {
@@ -11,17 +11,17 @@
             channelAccessToken: {type:"password", required:true},
         },
         inputs:1,
-        outputs:0,
+        outputs:1,
         icon: "comment.png",
         align: "right",
-        paletteLabel: 'Reply',
+        paletteLabel: 'Reply_New',
         label: function () {
-            return this.name || 'ReplyMessage';
+            return this.name || 'ReplyMessage_New';
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="ReplyMessage">
+<script type="text/x-red" data-template-name="ReplyMessage_New">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -43,6 +43,6 @@
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="ReplyMessage">
+<script type="text/x-red" data-help-name="ReplyMessage_New">
     <p>A simple node that converts the message payloads into all ReplyMessage characters</p>
 </script>
