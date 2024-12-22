@@ -12,8 +12,8 @@
         outputs:1,
         icon: "comment.png",
         align: "right",
-        paletteLabel: 'Notify_New',
-        label: () => this.name || 'Notify_New',
+        paletteLabel: 'Notify',
+        label: () => this.name || 'Notify',
     });
 </script>
 
@@ -30,6 +30,8 @@
         </label>
         <input type="password" id="node-input-AccessToken" placeholder="LINE Notify AccessToken">
     </div>
+
+    <p> ※LINE Notifyは2025/3/31でサービス終了となります。利用をやめてPushメッセージなどに移行してください。 https://developers.line.biz/ja/news/2024/10/07/line-notify-will-be-discontinued/ </p>
 </script>
 
 <script type="text/x-red" data-help-name="Notify_New">

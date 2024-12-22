@@ -1,38 +1,51 @@
 module.exports = (RED) => {
     'use strict';
-    
-    const axiosBase = require('axios');
 
     const main = function(config){
         const node = this;
         RED.nodes.createNode(node, config);
         const LINE_TOKEN = node.credentials.AccessToken;
-        const axios = axiosBase.create({
-            baseURL: `https://api.line.me/v2/bot/message/quota`,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': `Bearer ${LINE_TOKEN}`
-            }
-        });
 
         node.on('input', async (msg, send, done) => {
             const mes = msg.payload;
             try {
-                const resLimit = await axios.get(`/`);
-                const resCurrent = await axios.get(`/consumption`);
+                // LINEのクォータ情報を取得するAPIのURL
+                const quotaUrl = `https://api.line.me/v2/bot/message/quota`;
+                const consumptionUrl = `${quotaUrl}/consumption`;
+
+                // Fetch APIを使ってクォータ情報を取得
+                const resLimit = await fetch(quotaUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Authorization': `Bearer ${LINE_TOKEN}`
+                    }
+                });
+
+                const resCurrent = await fetch(consumptionUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Authorization': `Bearer ${LINE_TOKEN}`
+                    }
+                });
+
+                // レスポンスをJSONとして解析
+                const dataLimit = await resLimit.json();
+                const dataCurrent = await resCurrent.json();
 
                 const output = {
-                    type: resLimit.data.type,
-                    limit: resLimit.data.value,
-                    totalUsage: resCurrent.data.totalUsage,
-                    usagePercentage: resCurrent.data.totalUsage / resLimit.data.value
-                }
+                    type: dataLimit.type,
+                    limit: dataLimit.value,
+                    totalUsage: dataCurrent.totalUsage,
+                    usagePercentage: dataCurrent.totalUsage / dataLimit.value
+                };
 
                 msg.payload = output;
                 send(msg);
                 done();
             } catch (error) {
-                console.log(error);
+                console.error(error);
                 done(error);
             }
 

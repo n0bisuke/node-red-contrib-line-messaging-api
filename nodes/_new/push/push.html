@@ -14,7 +14,7 @@
         outputs: 1,
         icon: "comment.png",
         align: "right",
-        paletteLabel: 'Push_New',
+        paletteLabel: 'Push',
         label: () => this.name || 'PushMessage_New'
     });
 </script>
@@ -39,6 +39,13 @@
         <label for="node-input-targetId"><i class="icon-tag"></i> User Id or Group ID</label>
         <input type="text" id="node-input-targetId" placeholder="User Id or Group ID">
     </div>
+
+    <!-- <div class="form-row">
+        <label for="story">Tell us your story:</label>
+            <textarea id="story" name="story" rows="5" cols="33">
+                It was a dark and stormy night...
+            </textarea>
+    </div> -->
 </script>
 
 <script type="text/x-red" data-help-name="PushMessage_New">

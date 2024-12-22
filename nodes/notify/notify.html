@@ -12,8 +12,9 @@
         outputs:0,
         icon: "comment.png",
         align: "right",
+        paletteLabel: 'Notify_old',
         label: function() {
-            return this.name||"Notify";
+            return this.name||"Notify_old";
         }
     });
 </script>
@@ -31,7 +32,7 @@
         </label>
         <input type="password" id="node-input-AccessToken" placeholder="LINE Notify AccessToken">
     </div>
-
+    <p> ※LINE Notifyは2025/3/31でサービス終了となります。利用をやめてPushメッセージなどに移行してください。 https://developers.line.biz/ja/news/2024/10/07/line-notify-will-be-discontinued/ </p>
     <p>こちらのノードは旧バージョンになります。Newバージョンの利用を検討してください。</p>
     <p>This node is the old version, please consider using the New version.</p>
 </script>

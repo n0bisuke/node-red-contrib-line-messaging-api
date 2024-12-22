@@ -30,7 +30,7 @@ module.exports = (RED) => {
                 const REQUEST_OPTIONS = {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Content-Type': 'application/json',
                         'Authorization': `Bearer ${LINE_NOTIFY_TOKEN}`
                     },
                     body: new URLSearchParams(params).toString()
