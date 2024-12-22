@@ -4,14 +4,6 @@ LINE Messagin APIのNode-REDのノードです。
 
 LINE Messagin APIを利用できるNode-REDのノードです。
 
-以下のAPIを利用できます。
-
-- LINE Messaging API
-    - Webhook & Reply Message
-    - Push Message
-    - BloadCast Message
-- LINE Notify
-
 ## インストール
 
 ```
@@ -22,7 +14,7 @@ or
 
 AdminタブからInstall
 
-## 利用イメージ
+## 利用できるAPIと利用イメージ
 
 ### Webhook & Reply Message
 
