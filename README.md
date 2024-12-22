@@ -77,6 +77,13 @@ return msg;
 
 > ![](https://i.gyazo.com/ef7c655a74e85e23db5ee156e5490e15.png)
 
+### Loading
+
+ローディングを表示させます。
+
+> ![](https://i.gyazo.com/355a5f5cca896740eaa50a7b9d76a8fc.gif)
+> https://developers.line.biz/ja/reference/messaging-api/#display-a-loading-indicator
+
 ### LINE Notify （2024/12/22追記: API自体が終了するため廃止予定です。）
 
 > ![](https://i.gyazo.com/e64db6a7ee48cea43ed3c70b5fd2f05f.gif)

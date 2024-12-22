@@ -1,0 +1,72 @@
+<script>
+    RED.nodes.registerType('Loading',{
+        category: 'LINE',
+        color: '#01B301',
+        defaults: {
+            name: {value:""},
+            loadingSeconds: {value: 20}
+        },
+        credentials: {
+            channelAccessToken: { type: "password", required: true },
+            targetId:{type:"password", required:true}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "timer.png",
+        align: "right",
+        label: function() {
+            return this.name||"Loading";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="Loading">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-channelAccessToken">
+            <i class="icon-tag"></i>
+            Channel Access Token
+        </label>
+        <input type="password" id="node-input-channelAccessToken" placeholder="LINE Channel AccessToken">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-targetId"><i class="icon-tag"></i> User Id</label>
+        <input type="text" id="node-input-targetId" placeholder="User Id">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-loadingSeconds">
+            <i class="icon-timer"></i> Loading Seconds
+        </label>
+        <select id="node-input-loadingSeconds">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20" selected>20</option>
+            <option value="25">25</option>
+            <option value="30">30</option>
+            <option value="35">35</option>
+            <option value="40">40</option>
+            <option value="45">45</option>
+            <option value="50">50</option>
+            <option value="55">55</option>
+            <option value="60">60</option>
+        </select>
+    </div>
+
+    <p>
+        このノードは、指定した秒数だけローディングアニメーションを表示させます。<br>
+        現状（2024年12月に記載）、グループには対応してなく<br>
+        UからはじまるユーザーIDのみ（個別チャット）です。
+        詳細は<a href="https://developers.line.biz/ja/reference/messaging-api/#display-a-loading-indicator" target="_blank">公式ドキュメント</a>を参照下さい。
+    </p>
+</script>
+
+<script type="text/x-red" data-help-name="Loading">
+    <p>当月の送信メッセージのリミットを教えてくれます。</p>
+</script>
