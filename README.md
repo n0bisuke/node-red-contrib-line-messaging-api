@@ -34,17 +34,52 @@ AdminタブからInstall
 
 ### Push Message
 
-![](https://i.gyazo.com/1562a3e4539469515c798d9e3c50d052.gif)
+Pushメッセージを送るときにmsg.payloadにテキストを入れることでテキストメッセージの送信ができます。
+
+> ![](https://i.gyazo.com/1562a3e4539469515c798d9e3c50d052.gif)
+
+#### テキストメッセージv2でユーザーにメンション
+
+Pushメッセージを送るときにmsg.payloadに`{hoge}`などのテキストを入れつつ、msg.substitutionを設定することでテキストメッセージv2を使ってユーザーにメンションすることができます。
+
+- msg.payload: `Welcome, {user1}! {laugh}\n{everyone} There is a newcomer!`
+- msg.substitution: 
+
+```json
+{"user1": {"type": "mention", "mentionee": {"type": "user", "userId": "Uxxxxxxxxxxxx"}},"laugh": {"type": "emoji","productId": "670e0cce840a8236ddd4ee4c","emojiId": "002"},"everyone": {"type": "mention","mentionee": {"type": "all"}}}
+```
+
+> ![](https://i.gyazo.com/3fa696275f53251bf99e7a1354183d72.png)
+
+#### 任意のメッセージ
+
+msg.payloadに配列や[メッセージオブジェクト](https://developers.line.biz/ja/reference/messaging-api/#message-objects)を設定することで任意のメッセージを送信できます。
+
+```js
+msg.payload = [
+    {
+        type: "text",
+        text: "hogehoge",
+    },
+    {
+        type: "image",
+        originalContentUrl: 'https://i.gyazo.com/e772c3b48a07716226f7184d7f417cda.png',
+        previewImageUrl: 'https://i.gyazo.com/e772c3b48a07716226f7184d7f417cda.png'
+    }
+]
+
+return msg;
+```
 
 ### Bloadcast Message
 
 * 友達全員にメッセージ配信
 
-![](https://i.gyazo.com/ef7c655a74e85e23db5ee156e5490e15.png)
+> ![](https://i.gyazo.com/ef7c655a74e85e23db5ee156e5490e15.png)
 
-### LINE Notify
+### LINE Notify （2024/12/22追記: API自体が終了するため廃止予定です。）
 
-![](https://i.gyazo.com/e64db6a7ee48cea43ed3c70b5fd2f05f.gif)
+> ![](https://i.gyazo.com/e64db6a7ee48cea43ed3c70b5fd2f05f.gif)
 
 ### LINE Notify_new
 
