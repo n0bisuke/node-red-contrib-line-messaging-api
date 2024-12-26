@@ -4,11 +4,12 @@
         color: '#01B301',
         defaults: {
             name: {value:""},
+            lineConfig: {value: "", type:"lineConfig"}, //共通のlineConfigを使う 後方互換的にrequired:trueを外す
             replyMessage:{value:""}
         },
         credentials: {
-            channelSecret: {type:"password", required:true},
-            channelAccessToken: {type:"password", required:true},
+            channelSecret: {type:"password"}, //後方互換的にrequired:trueを外す
+            channelAccessToken: {type:"password"}, //後方互換的にrequired:trueを外す
         },
         inputs:1,
         outputs:1,
@@ -21,10 +22,19 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="ReplyMessage_New">
+<script type="text/html" data-template-name="ReplyMessage_New">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    <!-- LINE Config -->
+    <div class="form-row">
+        <label for="node-input-lineConfig">
+            <i class="fa fa-tag"></i>
+            LINE Bot
+            <span data-i18n="getProfile.label.lineConfig"></span>
+        </label> <input type="text" id="node-input-lineConfig" data-i18n="[placeholder]getProfile.desc.lineConfig">
     </div>
 
     <div class="form-row">
@@ -43,6 +53,6 @@
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="ReplyMessage_New">
+<script type="text/html" data-help-name="ReplyMessage_New">
     <p>A simple node that converts the message payloads into all ReplyMessage characters</p>
 </script>

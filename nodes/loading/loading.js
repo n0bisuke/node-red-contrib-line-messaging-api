@@ -38,7 +38,7 @@ module.exports = (RED) => {
 
                 // レスポンスが {}（空のJSONオブジェクト）なら成功らしい
                 if (res && Object.keys(res).length === 0) {
-                    node.log('ローディングが成功しました: {} が返却されました');
+                    node.log('ローディングが成功したかも?: {} が返却されました');
                 } else {
                     node.warn('ローディング処理失敗:', res);
                 }

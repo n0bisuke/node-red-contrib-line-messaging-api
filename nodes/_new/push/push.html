@@ -4,10 +4,12 @@
         color: '#01B301',
         defaults: {
             name: {value:""},
+            // lineConfig: {value: "", type:"lineConfig", required:true}, //共通のlineConfigを使う 
+            lineConfig: {value: "", type:"lineConfig"}, //共通のlineConfigを使う 後方互換的にrequired:trueを外す
         },
         credentials: {
             // channelSecret: {type:"password", required:true},
-            channelAccessToken: {type:"password", required:true},
+            channelAccessToken: {type:"password"}, //後方互換的にrequired:trueを外す
             targetId:{type:"password", required:true},
         },
         inputs: 1,
@@ -25,13 +27,17 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 
-    <!-- <div class="form-row">
-        <label for="node-input-channelSecret"><i class="icon-tag"></i> Secret</label>
-        <input type="password" id="node-input-channelSecret" placeholder="ChannelSecret">
-    </div> -->
+    <!-- LINE Config -->
+    <div class="form-row">
+        <label for="node-input-lineConfig">
+            <i class="fa fa-tag"></i>
+            LINE Bot
+            <span data-i18n="getProfile.label.lineConfig"></span>
+        </label> <input type="text" id="node-input-lineConfig" data-i18n="[placeholder]getProfile.desc.lineConfig">
+    </div>
 
     <div class="form-row">
-        <label for="node-input-channelAccessToken"><i class="icon-tag"></i> AccessToken</label>
+        <label for="node-input-channelAccessToken"><i class="icon-tag"></i> （AccessToken）</label>
         <input type="password" id="node-input-channelAccessToken" placeholder="ChannelAccessToken">
     </div>
 

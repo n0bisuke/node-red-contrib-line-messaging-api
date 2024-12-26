@@ -6,18 +6,30 @@ module.exports = (RED) => {
         const node = this;
         RED.nodes.createNode(node, config);
 
-        let lineconfig;
+        let lineconfig = {};
+
         try {
-            lineconfig = require('../../env');
+            lineconfig = require('../../env'); //環境変数を取得
         } catch (error) {
-            lineconfig = { 
-                // channelSecret: node.credentials.channelSecret,
-                channelAccessToken: node.credentials.channelAccessToken
-            };
+            try {
+                node.lineConfig = RED.nodes.getNode(config.lineConfig); //共通のlineConfigを取得
+                lineconfig = { 
+                    channelSecret: node.lineConfig.credentials.LineChannelSecret,
+                    channelAccessToken: node.lineConfig.credentials.LineChannelAccessToken
+                };
+                console.log(`---共通lineConfigから---`);
+            } catch (error) {
+                lineconfig = { 
+                    channelSecret: node.credentials.channelSecret,
+                    channelAccessToken: node.credentials.channelAccessToken
+                };
+                console.log(`---個別の設定から---`);
+            }
+
         }
 
         if(lineconfig.channelAccessToken === undefined || lineconfig.channelAccessToken === '') {
-            console.error('token not found1');
+            console.error('LINE token not found1');
             return;
         }
         // const client = new line.messagingApi.MessagingApiClient(lineconfig);

@@ -10,14 +10,24 @@ module.exports = (RED) => {
         try {
             lineconfig = require('../../env');
         } catch (error) {
-            lineconfig = {
-                channelSecret: node.credentials.channelSecret,
-                channelAccessToken: node.credentials.channelAccessToken
-            };
+            try {
+                node.lineConfig = RED.nodes.getNode(config.lineConfig); //共通のlineConfigを取得
+                lineconfig = { 
+                    channelSecret: node.lineConfig.credentials.LineChannelSecret,
+                    channelAccessToken: node.lineConfig.credentials.LineChannelAccessToken
+                };
+                console.log(`---共通lineConfigから---`);
+            } catch (error) {
+                lineconfig = { 
+                    channelSecret: node.credentials.channelSecret,
+                    channelAccessToken: node.credentials.channelAccessToken
+                };
+                console.log(`---個別の設定から---`);
+            }
         }
 
         if (lineconfig.channelSecret === '' || lineconfig.channelAccessToken === '') {
-            this.error(RED._('token not found'));
+            this.error(RED._('LINE token not found'));
         }
 
         const client = new line.Client(lineconfig);
