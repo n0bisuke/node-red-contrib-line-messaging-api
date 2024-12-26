@@ -14,6 +14,15 @@ or
 
 AdminタブからInstall
 
+## Configノード
+
+LINE Botの設定（チャンネルシークレット、チャンネルアクセストークン）を設定しておく裏側のノードです。
+このノードはエディターには表示されずReplyやPushなどのノードの設定UIからアクセスできます。
+
+> ![](https://i.gyazo.com/2528c7ebfae089dabef263b25f03112a.gif)
+
+作成したLINE Botの設定は別のReplyノードやPushノードで使いまわせます。
+
 ## 利用できるAPIと利用イメージ
 
 ### Webhook & Reply Message
@@ -110,6 +119,7 @@ template nodeにJSONを設定してみてください。
 
 ## release
 
+- 2024/12/27: Loaging / getProfile / configの追加
 - 2023/12/11: Notify_newを追加。スタンプや画像も送れるように。
 - 2021/8/1: Reply Messageが画像に対応（thanks [@ukkz](https://github.com/ukkz)）
 - 2020/12/17: Bloadcast Messageに対応、Reply MessageがFlex Messageに対応（thanks [@gaomar](https://github.com/gaomar)）
