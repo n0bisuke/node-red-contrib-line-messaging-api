@@ -53,10 +53,5 @@ module.exports = (RED) => {
         });
     }
 
-    RED.nodes.registerType("Loading", main, {
-        credentials: {
-            channelAccessToken: {type:"password"},
-            targetId: {type:"password"},
-        }
-    });
+    RED.nodes.registerType("Loading", main);
 }

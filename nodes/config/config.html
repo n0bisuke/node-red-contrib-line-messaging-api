@@ -1,0 +1,36 @@
+<script type="text/javascript">
+    RED.nodes.registerType('lineConfig', {
+        category: 'config',
+        color: '#00afd5',
+        defaults: {
+            name: {value: ""}
+        },
+        credentials: {
+            LineChannelSecret: {},
+            LineChannelAccessToken: {},
+        },
+        label: function () {
+            return this.name || 'API Key';
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="lineConfig">
+    <p>LINE Bot Token Settings </p>
+    <div class="form-row">
+        <label for="node-input-name"> <i class="fa fa-tag fa-fw"></i> Name</label>
+        <input type="text" id="node-config-input-name" placeholder="Name">
+    </div>
+
+    <div class="form-row">
+      <label for="node-config-input-LineChannelSecret"> Channel Secret</label>
+      <input type="text" id="node-config-input-LineChannelSecret" placeholder="LINE Channel Secret">
+    </div>
+
+    <div class="form-row">
+      <label for="node-config-input-LineChannelAccessToken"> Channel Access Token</label>
+      <input type="text" id="node-config-input-LineChannelAccessToken" placeholder="LINE Channel Access Token">
+    </div>
+
+</script>
+
