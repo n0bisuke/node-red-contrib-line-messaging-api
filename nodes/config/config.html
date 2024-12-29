@@ -3,36 +3,124 @@
         category: 'config',
         color: '#00afd5',
         defaults: {
-            name: {value: ""}
+            // botName は既存のまま
+            botName: { value: "" },
+            // botIconUrl を追加
+            botIconUrl: { value: "" }
         },
         credentials: {
-            LineChannelSecret: {},
-            LineChannelAccessToken: {},
+            LineChannelSecret: { type: "text" },
+            LineChannelAccessToken: { type: "text" }
         },
         label: function () {
-            return this.name || 'API Key';
+            return this.botName || 'No Title Bot';
+        },
+
+        oneditprepare: function () {
+            const node = this;
+
+            // すでに保存されている botIconUrl があれば表示する
+            if (node.botIconUrl) {
+                const botIconImg = document.getElementById("node-config-botIcon");
+                botIconImg.src = node.botIconUrl;
+                botIconImg.style.display = "block";
+            }
+
+            // 「Bot名＆アイコンを取得」ボタンイベント
+            const btnFetch = document.getElementById("node-config-fetch-info");
+            btnFetch.addEventListener("click", async () => {
+                const channelSecret = document.getElementById("node-config-input-LineChannelSecret").value;
+                const channelAccessToken = document.getElementById("node-config-input-LineChannelAccessToken").value;
+
+                if (!channelSecret || !channelAccessToken) {
+                    alert("Channel Secret と Access Token を入力してください。");
+                    return;
+                }
+
+                try {
+                    const response = await fetch("line-config/bot-info", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ channelSecret, channelAccessToken })
+                    });
+                    if (!response.ok) {
+                        throw new Error(await response.text());
+                    }
+
+                    const botInfo = await response.json();
+
+                    // Bot Name をテキストボックスに反映
+                    if (botInfo.displayName) {
+                        document.getElementById("node-config-input-botName").value = botInfo.displayName;
+                    }
+
+                    // Icon URL を hidden input にセット + 実際に表示
+                    if (botInfo.pictureUrl) {
+                        const botIconImg = document.getElementById("node-config-botIcon");
+                        botIconImg.src = botInfo.pictureUrl;
+                        botIconImg.style.display = "block";
+
+                        document.getElementById("node-config-input-botIconUrl").value = botInfo.pictureUrl;
+                    } else {
+                        // pictureUrl がない or 取得失敗時
+                        document.getElementById("node-config-input-botIconUrl").value = "";
+                    }
+                } catch (err) {
+                    alert("Bot情報を取得できませんでした: " + err.message);
+                }
+            });
+        },
+
+        oneditsave: function() {
+            // Save 時に hidden input から this.botIconUrl に反映
+            this.botIconUrl = document.getElementById("node-config-input-botIconUrl").value;
         }
     });
 </script>
 
+
 <script type="text/html" data-template-name="lineConfig">
-    <p>LINE Bot Token Settings </p>
-    <div class="form-row">
-        <label for="node-input-name">
-            <i class="fa fa-tag fa-fw"></i> Bot Name
-        </label>
-        <input type="text" id="node-config-input-name" placeholder="Name">
+    <div class="line-color node-input-form">
+        <p>LINE Bot Token Settings</p>
+
+        <div class="form-row">
+            <label for="node-config-input-botName">
+                <i class="fa fa-tag fa-fw"></i> Bot Name
+            </label>
+            <input type="text" id="node-config-input-botName" placeholder="BOT Name">
+        </div>
+
+        <div class="form-row">
+            <label for="node-config-input-LineChannelSecret">Channel Secret</label>
+            <input type="text" id="node-config-input-LineChannelSecret" placeholder="LINE Channel Secret">
+        </div>
+
+        <div class="form-row">
+            <label for="node-config-input-LineChannelAccessToken">Channel Access Token</label>
+            <input type="text" id="node-config-input-LineChannelAccessToken" placeholder="LINE Channel Access Token">
+        </div>
+
+        <!-- Bot Icon 表示エリア -->
+        <div class="form-row">
+            <label>Bot Icon</label><br/>
+            <img id="node-config-botIcon" src="" 
+                 style="display:none; max-width: 100px; border-radius: 10%;" />
+        </div>
+
+        <!-- アイコンURLを保存するための隠し入力項目 -->
+        <input type="hidden" id="node-config-input-botIconUrl" />
+        
+        <div class="form-row">
+            <button type="button" id="node-config-fetch-info">Bot名＆アイコンを取得</button>
+        </div>
     </div>
 
-    <div class="form-row">
-      <label for="node-config-input-LineChannelSecret"> Channel Secret</label>
-      <input type="text" id="node-config-input-LineChannelSecret" placeholder="LINE Channel Secret">
-    </div>
-
-    <div class="form-row">
-      <label for="node-config-input-LineChannelAccessToken"> Channel Access Token</label>
-      <input type="text" id="node-config-input-LineChannelAccessToken" placeholder="LINE Channel Access Token">
-    </div>
-
+    <style>
+        .line-color {
+            background-color: #01B301;
+            padding: 10px;
+            border-radius: 5px;
+            color: white;
+        }
+    </style>
 </script>
-
