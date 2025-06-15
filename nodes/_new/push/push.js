@@ -17,7 +17,7 @@ module.exports = (RED) => {
                     channelSecret: node.lineConfig.credentials.LineChannelSecret,
                     channelAccessToken: node.lineConfig.credentials.LineChannelAccessToken
                 };
-                console.log(`---共通lineConfigから---`);
+                // console.log(`---共通lineConfigから---`);
             } catch (error) {
                 lineconfig = { 
                     channelSecret: node.credentials.channelSecret,

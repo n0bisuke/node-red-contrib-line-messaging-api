@@ -19,7 +19,7 @@ AdminタブからInstall
 LINE Botの設定（チャンネルシークレット、チャンネルアクセストークン）を設定しておく裏側のノードです。
 このノードはエディターには表示されずReplyやPushなどのノードの設定UIからアクセスできます。
 
-> ![](https://i.gyazo.com/2528c7ebfae089dabef263b25f03112a.gif)
+> ![](https://i.gyazo.com/1443049286c39432bcf08647dcbff893.gif)
 
 作成したLINE Botの設定は別のReplyノードやPushノードで使いまわせます。
 
@@ -84,6 +84,17 @@ return msg;
 
 > ![](https://i.gyazo.com/355a5f5cca896740eaa50a7b9d76a8fc.gif)
 > https://developers.line.biz/ja/reference/messaging-api/#display-a-loading-indicator
+
+### getProfile
+
+ユーザーの情報を取得します。
+https://developers.line.biz/ja/reference/messaging-api/#get-profile
+
+### getBotInfo
+
+BOTの情報を取得します。
+
+https://developers.line.biz/ja/reference/messaging-api/#get-bot-info
 
 ### LINE Notify （2024/12/22追記: API自体が終了するため廃止予定です。）
 

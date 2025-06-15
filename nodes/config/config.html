@@ -3,9 +3,7 @@
         category: 'config',
         color: '#00afd5',
         defaults: {
-            // botName は既存のまま
             botName: { value: "" },
-            // botIconUrl を追加
             botIconUrl: { value: "" }
         },
         credentials: {
@@ -19,61 +17,121 @@
         oneditprepare: function () {
             const node = this;
 
-            // すでに保存されている botIconUrl があれば表示する
-            if (node.botIconUrl) {
-                const botIconImg = document.getElementById("node-config-botIcon");
-                botIconImg.src = node.botIconUrl;
-                botIconImg.style.display = "block";
+            // --- バリデーションのための設定 ---
+            const validationTip = $("#node-config-validation-tip");
+
+            function validate() {
+                let errorMessages = [];
+                const hasWhitespace = /\s/;
+                const hasFullWidth = /[^\x00-\x7F]/;
+
+                // 1. Bot Name のチェック
+                if ($("#node-config-input-botName").val() === "") {
+                    errorMessages.push("・Bot Name は必須です。");
+                }
+
+                // 2. Channel Secret のチェック
+                const secret = $("#node-config-input-LineChannelSecret").val();
+                if (secret === "") {
+                    errorMessages.push("・Channel Secret は必須です。");
+                } else if (hasWhitespace.test(secret)) {
+                    errorMessages.push("・Channel Secret にスペースや改行は含められません。");
+                } else if (hasFullWidth.test(secret)) {
+                    errorMessages.push("・Channel Secret に全角文字は含められません。");
+                } else if (secret.length !== 32) {
+                    errorMessages.push("・Channel Secret は32文字で入力してください。");
+                }
+
+                // 3. Channel Access Token のチェック
+                const token = $("#node-config-input-LineChannelAccessToken").val();
+                if (token === "") {
+                    errorMessages.push("・Channel Access Token は必須です。");
+                } else if (hasWhitespace.test(token)) {
+                    errorMessages.push("・Channel Access Token にスペースや改行は含められません。");
+                } else if (hasFullWidth.test(token)) {
+                    errorMessages.push("・Channel Access Token に全角文字は含められません。");
+                } else if (token.length < 150) {
+                    errorMessages.push("・Channel Access Token が短すぎます。正しい値を貼り付けてください。");
+                }
+
+                if (errorMessages.length > 0) {
+                    $("#node-config-dialog-ok").prop("disabled", true);
+                    validationTip.html(errorMessages.join('<br/>'));
+                    validationTip.show();
+                } else {
+                    $("#node-config-dialog-ok").prop("disabled", false);
+                    validationTip.hide();
+                }
             }
 
-            // 「Bot名＆アイコンを取得」ボタンイベント
-            const btnFetch = document.getElementById("node-config-fetch-info");
-            btnFetch.addEventListener("click", async () => {
-                const channelSecret = document.getElementById("node-config-input-LineChannelSecret").value;
-                const channelAccessToken = document.getElementById("node-config-input-LineChannelAccessToken").value;
+            $("#node-config-input-botName, #node-config-input-LineChannelSecret, #node-config-input-LineChannelAccessToken")
+                .on('keyup input change', validate);
+
+            validate(); // 初期チェック
+
+            // --- アイコン取得機能（復元） ---
+            
+            // 起動時に保存済みのアイコンがあれば表示
+            if (node.botIconUrl) {
+                $("#node-config-botIcon").attr("src", node.botIconUrl).show();
+            }
+
+            // 「Bot名＆アイコンを取得」ボタンのクリックイベント
+            $("#node-config-fetch-info").on("click", async () => {
+                const channelSecret = $("#node-config-input-LineChannelSecret").val();
+                const channelAccessToken = $("#node-config-input-LineChannelAccessToken").val();
 
                 if (!channelSecret || !channelAccessToken) {
-                    alert("Channel Secret と Access Token を入力してください。");
+                    RED.notify("Channel Secret と Access Token を両方入力してから取得してください。", "warning");
                     return;
                 }
 
+                // ★★★ ここからがAPIに問い合わせる復元部分です ★★★
                 try {
                     const response = await fetch("line-config/bot-info", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ channelSecret, channelAccessToken })
                     });
+
                     if (!response.ok) {
-                        throw new Error(await response.text());
+                        const errorText = await response.text();
+                        throw new Error("APIエラー: " + errorText);
                     }
 
                     const botInfo = await response.json();
 
-                    // Bot Name をテキストボックスに反映
+                    // Bot Name をテキストボックスに反映し、バリデーションを再実行
                     if (botInfo.displayName) {
-                        document.getElementById("node-config-input-botName").value = botInfo.displayName;
+                        $("#node-config-input-botName").val(botInfo.displayName).trigger('change');
                     }
 
                     // Icon URL を hidden input にセット + 実際に表示
                     if (botInfo.pictureUrl) {
-                        const botIconImg = document.getElementById("node-config-botIcon");
-                        botIconImg.src = botInfo.pictureUrl;
-                        botIconImg.style.display = "block";
-
-                        document.getElementById("node-config-input-botIconUrl").value = botInfo.pictureUrl;
+                        $("#node-config-botIcon").attr("src", botInfo.pictureUrl).show();
+                        $("#node-config-input-botIconUrl").val(botInfo.pictureUrl);
                     } else {
-                        // pictureUrl がない or 取得失敗時
-                        document.getElementById("node-config-input-botIconUrl").value = "";
+                        $("#node-config-input-botIconUrl").val("");
+                        $("#node-config-botIcon").hide();
                     }
+                    RED.notify("Botの情報を取得しました。", "success");
                 } catch (err) {
-                    alert("Bot情報を取得できませんでした: " + err.message);
+                    RED.notify("Bot情報を取得できませんでした: " + err.message, "error");
                 }
+                // ★★★ ここまでが復元部分です ★★★
             });
         },
 
         oneditsave: function() {
-            // Save 時に hidden input から this.botIconUrl に反映
-            this.botIconUrl = document.getElementById("node-config-input-botIconUrl").value;
+            // ★ alert() を削除し、console.log のみ残しました
+            if (this.isNew) {
+                console.log("新しい設定が追加されました。");
+            } else {
+                console.log("既存の設定が更新されました。");
+            }
+
+            // ★ アイコンURLを保存する処理を有効にしました
+            this.botIconUrl = $("#node-config-input-botIconUrl").val();
         }
     });
 </script>
@@ -110,6 +168,10 @@
         <!-- アイコンURLを保存するための隠し入力項目 -->
         <input type="hidden" id="node-config-input-botIconUrl" />
         
+        <div class="form-row">
+            <div id="node-config-validation-tip" class="form-tips" style="display: none; color: #a94442;"></div>
+        </div>
+
         <div class="form-row">
             <button type="button" id="node-config-fetch-info">Bot名＆アイコンを取得</button>
         </div>
