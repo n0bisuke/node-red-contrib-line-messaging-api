@@ -1,47 +1,67 @@
-LINE Messagin APIのNode-REDのノードです。
+# node-red-contrib-line-messaging-api
 
-## 概要
+[日本語版はこちら (Japanese version)](README.ja.md)
 
-LINE Messagin APIを利用できるNode-REDのノードです。
+[Node-RED](http://nodered.org) nodes for LINE Messaging API integration.  
+Build LINE Bots easily with Node-RED's visual programming interface.
 
-## インストール
+---
 
+## About this project
+
+This package provides Node-RED nodes for integrating with LINE Messaging API, allowing you to create LINE Bots using Node-RED's visual flow editor. Create webhooks, send messages, and handle LINE Bot events with simple drag-and-drop nodes.
+
+---
+
+## Install
+
+Run the following command in the root directory of your Node-RED install:
+
+```sh
+npm install node-red-contrib-line-messaging-api
 ```
-npm i node-red-contrib-line-messaging-api
-```
 
-or
+Or using Node-RED's Palette Manager:
 
-AdminタブからInstall
+1. Go to the Node-RED menu
+2. Select "Manage palette"
+3. Click the "Install" tab
+4. Search for "line-messaging-api"
+5. Click install
 
-## Configノード
+---
 
-LINE Botの設定（チャンネルシークレット、チャンネルアクセストークン）を設定しておく裏側のノードです。
-このノードはエディターには表示されずReplyやPushなどのノードの設定UIからアクセスできます。
+## Configuration
+
+### LINE Bot Config Node
+
+The configuration node stores your LINE Bot credentials (Channel Secret and Channel Access Token). This background node isn't displayed in the editor but is accessible through the settings UI of Reply and Push nodes.
 
 > ![](https://i.gyazo.com/1443049286c39432bcf08647dcbff893.gif)
 
-作成したLINE Botの設定は別のReplyノードやPushノードで使いまわせます。
+Created LINE Bot configurations can be shared across multiple Reply and Push nodes.
 
-## 利用できるAPIと利用イメージ
+---
+
+## Available APIs and Usage
 
 ### Webhook & Reply Message
 
-1. Webhookノードを配置し、ダブルクリックで設定を開き、指定した `/path` と自身のホスト名の組み合わせ（Webhook URL）を、LINE Developersであらかじめ作成したMessaging APIに登録します。
-2. ReplyMessageノードを配置し、チャネルのシークレットとアクセストークンを設定します。
-3. WebhookノードとReplyMessageノードを接続してLINEにメッセージを送るとオウム返しBotができます。  
-  [![Image from Gyazo](https://i.gyazo.com/7da2dbecfc69515edf852cf7a26d9196.gif)](https://gyazo.com/7da2dbecfc69515edf852cf7a26d9196)
-4. WebhookノードとReplyMessageノードの中間で `msg.payload` をうまく作成すると様々なメッセージが送れます。文字列を指定すると通常のテキストメッセージに、[LINEで定義されているメッセージオブジェクト](https://developers.line.biz/ja/reference/messaging-api/#message-objects)を指定すればそのメッセージを返信することができます。
+1. Place a Webhook node and double-click to configure it. Set the `/path` and register the Webhook URL (your hostname + path) in the LINE Developers console for your Messaging API.
+2. Place a ReplyMessage node and configure the channel secret and access token.
+3. Connect the Webhook node to the ReplyMessage node to create an echo bot that responds to LINE messages.
+   [![Image from Gyazo](https://i.gyazo.com/7da2dbecfc69515edf852cf7a26d9196.gif)](https://gyazo.com/7da2dbecfc69515edf852cf7a26d9196)
+4. Process `msg.payload` between the Webhook and ReplyMessage nodes to send various message types. Use plain text strings for text messages, or [LINE-defined message objects](https://developers.line.biz/en/reference/messaging-api/#message-objects) for rich messages.
 
 ### Push Message
 
-Pushメッセージを送るときにmsg.payloadにテキストを入れることでテキストメッセージの送信ができます。
+Send push messages by setting text in `msg.payload` to send text messages.
 
 > ![](https://i.gyazo.com/1562a3e4539469515c798d9e3c50d052.gif)
 
-#### テキストメッセージv2でユーザーにメンション
+#### Text Message v2 with User Mentions
 
-Pushメッセージを送るときにmsg.payloadに`{hoge}`などのテキストを入れつつ、msg.substitutionを設定することでテキストメッセージv2を使ってユーザーにメンションすることができます。
+Send push messages with user mentions using Text Message v2 by setting `msg.payload` with `{placeholder}` text and configuring `msg.substitution`.
 
 - msg.payload: `Welcome, {user1}! {laugh}\n{everyone} There is a newcomer!`
 - msg.substitution: 
@@ -52,9 +72,9 @@ Pushメッセージを送るときにmsg.payloadに`{hoge}`などのテキスト
 
 > ![](https://i.gyazo.com/3fa696275f53251bf99e7a1354183d72.png)
 
-#### 任意のメッセージ
+#### Custom Messages
 
-msg.payloadに配列や[メッセージオブジェクト](https://developers.line.biz/ja/reference/messaging-api/#message-objects)を設定することで任意のメッセージを送信できます。
+Send custom messages by setting arrays or [message objects](https://developers.line.biz/en/reference/messaging-api/#message-objects) in `msg.payload`.
 
 ```js
 msg.payload = [
@@ -72,67 +92,80 @@ msg.payload = [
 return msg;
 ```
 
-### Bloadcast Message
+### Broadcast Message
 
-* 友達全員にメッセージ配信
+Send messages to all bot friends.
 
 > ![](https://i.gyazo.com/ef7c655a74e85e23db5ee156e5490e15.png)
 
 ### Loading
 
-ローディングを表示させます。
+Display loading indicators to users.
 
 > ![](https://i.gyazo.com/355a5f5cca896740eaa50a7b9d76a8fc.gif)
-> https://developers.line.biz/ja/reference/messaging-api/#display-a-loading-indicator
+> https://developers.line.biz/en/reference/messaging-api/#display-a-loading-indicator
 
-### getProfile
+### Get Profile
 
-ユーザーの情報を取得します。
-https://developers.line.biz/ja/reference/messaging-api/#get-profile
+Retrieve user profile information.
+https://developers.line.biz/en/reference/messaging-api/#get-profile
 
-### getBotInfo
+### Get Bot Info
 
-BOTの情報を取得します。
+Retrieve bot information.
+https://developers.line.biz/en/reference/messaging-api/#get-bot-info
 
-https://developers.line.biz/ja/reference/messaging-api/#get-bot-info
+---
 
-### LINE Notify （2024/12/22追記: API自体が終了するため廃止予定です。）
+## Node Types
 
-> ![](https://i.gyazo.com/e64db6a7ee48cea43ed3c70b5fd2f05f.gif)
+| Node Type | Description |
+|-----------|-------------|
+| **Webhook** | Receives webhooks from LINE platform |
+| **Reply Message** | Sends reply messages using reply tokens |
+| **Push Message** | Sends push messages to specific users |
+| **Broadcast Message** | Sends messages to all bot friends |
+| **Loading** | Displays loading indicators |
+| **Get Profile** | Retrieves user profile information |
+| **Get Bot Info** | Retrieves bot information |
+| **Limit** | Checks message quota limits |
+| **LINE Bot Config** | Stores bot credentials (background node) |
 
-### LINE Notify_new
+---
 
-過去のものとAPIは変わってないですが、オプション指定ができます。
+## Browser Compatibility and Requirements
 
-> ![](https://i.gyazo.com/b9d963d9357e26c86d4d771b16726195.png)
+- **HTTPS Required**: For production webhook endpoints
+- **LINE Developers Account**: Required for creating LINE Bots
+- **Node-RED**: Compatible with Node-RED v1.0+
+- **Dependencies**: @line/bot-sdk, express, body-parser, cors
 
-template nodeにJSONを設定してみてください。
+---
 
-> ![](https://i.gyazo.com/d4f040678957fffbfb6b074966051aa1.png)
+## Links
 
-- 画像とスタンプも送る例
-
-```
-{
-    "stickerPackageId": "446",
-    "stickerId": "1988",
-    "message": "{{payload}}",
-    "imageThumbnail": "https://i.gyazo.com/a84c585225af440bd0d5fff881152792.png",
-    "imageFullsize": "https://i.gyazo.com/a84c585225af440bd0d5fff881152792.png"
-}
-```
-
-## LINK
-
-* [NodeRED](https://flows.nodered.org/node/node-red-contrib-line-messaging-api)
+* [Node-RED Flows](https://flows.nodered.org/node/node-red-contrib-line-messaging-api)
 * [Libraries.io](https://libraries.io/npm/node-red-contrib-line-messaging-api)
 * [npm](https://www.npmjs.com/package/node-red-contrib-line-messaging-api)
 
-## release
+---
 
-- 2024/12/27: Loaging / getProfile / configの追加
-- 2023/12/11: Notify_newを追加。スタンプや画像も送れるように。
-- 2021/8/1: Reply Messageが画像に対応（thanks [@ukkz](https://github.com/ukkz)）
-- 2020/12/17: Bloadcast Messageに対応、Reply MessageがFlex Messageに対応（thanks [@gaomar](https://github.com/gaomar)）
-- 2019/2/13: PUSH MessageとLINE Notify対応
-- 2018/10/11: 現状は簡単なリプライのみ実装されています。
+## Release Notes
+
+- 2024/12/27: Added Loading, getProfile, and config nodes
+- 2023/12/11: Added Notify_new with sticker and image support
+- 2021/8/1: Reply Message now supports images (thanks [@ukkz](https://github.com/ukkz))
+- 2020/12/17: Added Broadcast Message support, Reply Message supports Flex Messages (thanks [@gaomar](https://github.com/gaomar))
+- 2019/2/13: Added PUSH Message and LINE Notify support
+- 2018/10/11: Initial release with basic reply functionality
+
+---
+
+## Contributing & License
+
+Pull requests and bug reports are welcome.  
+This project is licensed under the [Apache 2.0 license](https://www.apache.org/licenses/LICENSE-2.0).
+
+Created and maintained by [n0bisuke](https://github.com/n0bisuke).
+
+---

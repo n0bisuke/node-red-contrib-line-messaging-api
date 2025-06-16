@@ -1,7 +1,7 @@
 {
   "name": "node-red-contrib-line-messaging-api",
   "version": "0.4.2",
-  "description": "Node-RED nodes for LINE Messaging API integration. Node-REDでLINE Botが作れます。",
+  "description": "Node-RED nodes for LINE Messaging API integration. Build LINE Bots easily with visual programming.",
   "main": "line.js",
   "repository": {
     "type": "git",
@@ -23,9 +23,7 @@
       "lineConfig": "./nodes/config/config.js",
       "Loading": "./nodes/loading/loading.js",
       "ReplyMessage": "./nodes/reply/reply.js",
-      "PushMessage": "./nodes/push/push.js",
-      "Notify_New": "./nodes/_new/notify/notify.js",
-      "Notify": "./nodes/notify/notify.js"
+      "PushMessage": "./nodes/push/push.js"
     }
   },
   "keywords": [
