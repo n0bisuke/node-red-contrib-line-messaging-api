@@ -1,0 +1,10 @@
+{
+    "push": {
+        "label": {
+            "name": "名前",
+            "channelSecret": "チャンネルシークレット",
+            "channelAccessToken": "チャンネルアクセストークン",
+            "targetId": "ユーザーIDまたはグループID"
+        }
+    }
+}

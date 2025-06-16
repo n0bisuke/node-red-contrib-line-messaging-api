@@ -21,19 +21,19 @@
 <script type="text/html" data-template-name="Limit">
     <!-- 名前 -->
     <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <label for="node-input-name"><i class="icon-tag"></i> <span data-i18n="limit.label.name">名前</span></label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 
     <div class="form-row">
         <label for="node-input-AccessToken">
             <i class="icon-tag"></i>
-            Channel Access Token
+            <span data-i18n="limit.label.accessToken">チャンネルアクセストークン</span>
         </label>
         <input type="password" id="node-input-AccessToken" placeholder="LINE Limit AccessToken">
     </div>
 </script>
 
 <script type="text/x-red" data-help-name="Limit">
-    <p>当月の送信メッセージのリミットを教えてくれます。</p>
+    <p>Returns the current month's message quota limits.</p>
 </script>

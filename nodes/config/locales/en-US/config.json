@@ -1,0 +1,14 @@
+{
+    "validation": {
+        "botNameRequired": "Bot Name is required!",
+        "channelSecretRequired": "Channel Secret is required!",
+        "channelAccessTokenRequired": "Channel Access Token is required!"
+    },
+    "label": {
+        "botName": "Bot Name",
+        "channelSecret": "Channel Secret",
+        "channelAccessToken": "Channel Access Token",
+        "botIcon": "Bot Icon",
+        "fetchBotInfo": "Fetch Bot Name & Icon"
+    }
+}

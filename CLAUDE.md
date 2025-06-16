@@ -169,3 +169,25 @@ nodes/
 - **Message format errors**: Ensure JSON structure matches LINE API specs
 
 This documentation provides AI assistants with comprehensive context for maintaining and extending this LINE Bot Node-RED integration package.
+
+---
+
+## 【重要】getBotInfoノードの多言語化（i18n）設計方針まとめ
+
+- UI要素のi18nは `getBotInfo.label.xxx` 形式でJSONファイルに記述し、テンプレートも同じ参照形式で統一する
+- 例: `<span data-i18n="getBotInfo.label.lineConfig">LINE Bot設定</span>`
+- JSON構造例:
+    ```json
+    {
+        "getBotInfo": {
+            "label": {
+                "name": "名前",
+                "lineConfig": "LINE Bot設定",
+                "fetchBotInfo": "Bot情報を取得"
+            }
+        }
+    }
+    ```
+- `data-help-name`セクションのヘルプテキストはJSONからは参照できないため、英語で直接HTMLに記述する
+- ヘルプの多言語化が必要な場合は、locales/ja/getBotInfo.html等を用意しHTML分離方式で対応する
+- `data-i18n`は`data-template-name`セクション内のみ有効、`data-help-name`内では動作しない

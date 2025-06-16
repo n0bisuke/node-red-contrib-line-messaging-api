@@ -1,0 +1,8 @@
+{
+    "getProfile": {
+        "label": {
+            "name": "Name",
+            "lineConfig": "Bot Configuration"
+        }
+    }
+}

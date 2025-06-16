@@ -22,7 +22,7 @@ module.exports = function(RED) {
             const channelSecret = req.body.channelSecret;
             const channelAccessToken = req.body.channelAccessToken;
             if (!channelSecret || !channelAccessToken) {
-                return res.status(400).send("No channelSecret or channelAccessToken");
+                return res.status(400).send(RED._("validation.channelSecretRequired") || "No channelSecret or channelAccessToken");
             }
 
             const clientConfig = {
@@ -37,7 +37,7 @@ module.exports = function(RED) {
 
         } catch (err) {
             console.error("Failed to getBotInfo:", err);
-            res.status(500).send(err.message || "Failed to get botInfo");
+            res.status(500).send(err.message || RED._("message.fetchError") || "Failed to get botInfo");
         }
     });
 }

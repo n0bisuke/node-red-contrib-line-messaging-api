@@ -23,26 +23,26 @@
 
 <script type="text/x-red" data-template-name="ReplyMessage">
     <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <label for="node-input-name"><i class="icon-tag"></i> <span data-i18n="common.label.name">Name</span></label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 
     <div class="form-row">
-        <label for="node-input-channelSecret"><i class="icon-tag"></i> Secret</label>
+        <label for="node-input-channelSecret"><i class="icon-tag"></i> <span data-i18n="lineConfig.label.channelSecret">Secret</span></label>
         <input type="password" id="node-input-channelSecret" placeholder="ChannelSecret">
     </div>
 
     <div class="form-row">
-        <label for="node-input-channelAccessToken"><i class="icon-tag"></i> AccessToken</label>
+        <label for="node-input-channelAccessToken"><i class="icon-tag"></i> <span data-i18n="lineConfig.label.channelAccessToken">AccessToken</span></label>
         <input type="password" id="node-input-channelAccessToken" placeholder="ChannelAccessToken">
     </div>
 
     <div class="form-row">
-        <label for="node-input-replyMessage"><i class="icon-tag"></i> ReplyMessage</label>
+        <label for="node-input-replyMessage"><i class="icon-tag"></i> <span data-i18n="reply.label.message">ReplyMessage</span></label>
         <input type="text" id="node-input-replyMessage" placeholder="static text message here">
     </div>
 </script>
 
 <script type="text/x-red" data-help-name="ReplyMessage">
-    <p>A simple node that converts the message payloads into all ReplyMessage characters</p>
+    <p>Sends reply messages to LINE users using reply tokens.</p>
 </script>

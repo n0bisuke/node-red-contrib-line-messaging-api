@@ -1,0 +1,8 @@
+{
+    "getProfile": {
+        "label": {
+            "name": "名前",
+            "lineConfig": "LINE Bot設定"
+        }
+    }
+}

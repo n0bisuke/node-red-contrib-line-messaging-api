@@ -1,0 +1,9 @@
+{
+    "getBotInfo": {
+        "label": {
+            "name": "Name",
+            "lineConfig": "LINE Bot Configuration",
+            "fetchBotInfo": "Fetch Bot Info"
+        }
+    }
+}

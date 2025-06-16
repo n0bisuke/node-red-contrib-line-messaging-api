@@ -21,24 +21,27 @@
     <div class="form-row">
         <label for="node-input-name">
             <i class="fa fa-tag"></i>
-            <span data-i18n="node-red:common.label.name"></span>
+            <span data-i18n="getBotInfo.label.name">名前</span>
         </label>
-        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
+        <input type="text" id="node-input-name" placeholder="Name">
     </div>
     
     <!-- LINE Config -->
     <div class="form-row">
         <label for="node-input-lineConfig">
             <i class="fa fa-tag"></i>
-            LINE Bot
-            <span data-i18n="getBotInfo.label.lineConfig"></span>
-        </label> <input type="text" id="node-input-lineConfig" data-i18n="[placeholder]getBotInfo.desc.lineConfig">
+            <span data-i18n="getBotInfo.label.lineConfig">LINE Bot設定</span>
+        </label> 
+        <input type="text" id="node-input-lineConfig">
+    </div>
+
+    <!-- Bot情報取得ボタン -->
+    <div class="form-row">
+        <button type="button" id="node-getbotinfo-fetch"><span data-i18n="getBotInfo.label.fetchBotInfo">Bot情報を取得</span></button>
     </div>
     
 </script>
 
 <script type="text/html" data-help-name="getBotInfo">
-    <p>BOTの情報を取得します。</p>
+    <p>Gets the BOT information!</p>
 </script>
-
-

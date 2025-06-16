@@ -1,0 +1,9 @@
+{
+    "bloadcast": {
+        "label": {
+            "name": "名前",
+            "channelSecret": "チャンネルシークレット",
+            "channelAccessToken": "チャンネルアクセストークン"
+        }
+    }
+}

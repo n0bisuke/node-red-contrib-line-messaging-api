@@ -27,13 +27,21 @@
 
                 // 1. Bot Name のチェック
                 if ($("#node-config-input-botName").val() === "") {
-                    errorMessages.push("・Bot Name は必須です。");
+                    let message = node._("lineConfig.validation.botNameRequired");
+                    if (!message || message === "lineConfig.validation.botNameRequired") {
+                        message = "Bot名は必須です。";
+                    }
+                    errorMessages.push("・" + message);
                 }
 
                 // 2. Channel Secret のチェック
                 const secret = $("#node-config-input-LineChannelSecret").val();
                 if (secret === "") {
-                    errorMessages.push("・Channel Secret は必須です。");
+                    let message = node._("lineConfig.validation.channelSecretRequired");
+                    if (!message || message === "lineConfig.validation.channelSecretRequired") {
+                        message = "Channel Secret は必須です。";
+                    }
+                    errorMessages.push("・" + message);
                 } else if (hasWhitespace.test(secret)) {
                     errorMessages.push("・Channel Secret にスペースや改行は含められません。");
                 } else if (hasFullWidth.test(secret)) {
@@ -45,7 +53,11 @@
                 // 3. Channel Access Token のチェック
                 const token = $("#node-config-input-LineChannelAccessToken").val();
                 if (token === "") {
-                    errorMessages.push("・Channel Access Token は必須です。");
+                    let message = node._("lineConfig.validation.channelAccessTokenRequired");
+                    if (!message || message === "lineConfig.validation.channelAccessTokenRequired") {
+                        message = "Channel Access Token は必須です。";
+                    }
+                    errorMessages.push("・" + message);
                 } else if (hasWhitespace.test(token)) {
                     errorMessages.push("・Channel Access Token にスペースや改行は含められません。");
                 } else if (hasFullWidth.test(token)) {
@@ -82,7 +94,7 @@
                 const channelAccessToken = $("#node-config-input-LineChannelAccessToken").val();
 
                 if (!channelSecret || !channelAccessToken) {
-                    RED.notify("Channel Secret と Access Token を両方入力してから取得してください。", "warning");
+                    RED.notify(node._("message.fetchingBotInfo"), "warning");
                     return;
                 }
 
@@ -96,7 +108,7 @@
 
                     if (!response.ok) {
                         const errorText = await response.text();
-                        throw new Error("APIエラー: " + errorText);
+                        throw new Error("API Error: " + errorText);
                     }
 
                     const botInfo = await response.json();
@@ -114,9 +126,9 @@
                         $("#node-config-input-botIconUrl").val("");
                         $("#node-config-botIcon").hide();
                     }
-                    RED.notify("Botの情報を取得しました。", "success");
+                    RED.notify(node._("message.fetchSuccess"), "success");
                 } catch (err) {
-                    RED.notify("Bot情報を取得できませんでした: " + err.message, "error");
+                    RED.notify(node._("message.fetchError") + ": " + err.message, "error");
                 }
                 // ★★★ ここまでが復元部分です ★★★
             });
@@ -143,24 +155,24 @@
 
         <div class="form-row">
             <label for="node-config-input-botName">
-                <i class="fa fa-tag fa-fw"></i> Bot Name
+                <i class="fa fa-tag fa-fw"></i> <span data-i18n="label.botName">Bot名</span>
             </label>
             <input type="text" id="node-config-input-botName" placeholder="BOT Name">
         </div>
 
         <div class="form-row">
-            <label for="node-config-input-LineChannelSecret">Channel Secret</label>
+            <label for="node-config-input-LineChannelSecret"><span data-i18n="label.channelSecret">Channel Secret</span></label>
             <input type="text" id="node-config-input-LineChannelSecret" placeholder="LINE Channel Secret">
         </div>
 
         <div class="form-row">
-            <label for="node-config-input-LineChannelAccessToken">Channel Access Token</label>
+            <label for="node-config-input-LineChannelAccessToken"><span data-i18n="label.channelAccessToken">Channel Access Token</span></label>
             <input type="text" id="node-config-input-LineChannelAccessToken" placeholder="LINE Channel Access Token">
         </div>
 
         <!-- Bot Icon 表示エリア -->
         <div class="form-row">
-            <label>Bot Icon</label><br/>
+            <label><span data-i18n="label.botIcon">Bot Icon</span></label><br/>
             <img id="node-config-botIcon" src="" 
                  style="display:none; max-width: 100px; border-radius: 10%;" />
         </div>
@@ -173,7 +185,7 @@
         </div>
 
         <div class="form-row">
-            <button type="button" id="node-config-fetch-info">Bot名＆アイコンを取得</button>
+            <button type="button" id="node-config-fetch-info"><span data-i18n="label.fetchBotInfo">Bot名＆アイコンを取得</span></button>
         </div>
     </div>
 

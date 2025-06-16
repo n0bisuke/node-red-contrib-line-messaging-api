@@ -25,22 +25,22 @@
 <script type="text/x-red" data-template-name="BloadcastMessage">
     
     <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <label for="node-input-name"><i class="icon-tag"></i> <span data-i18n="bloadcast.label.name">名前</span></label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 
     <div class="form-row">
-        <label for="node-input-channelSecret"><i class="icon-tag"></i> Secret</label>
+        <label for="node-input-channelSecret"><i class="icon-tag"></i> <span data-i18n="bloadcast.label.channelSecret">チャンネルシークレット</span></label>
         <input type="password" id="node-input-channelSecret" placeholder="ChannelSecret">
     </div>
 
     <div class="form-row">
-        <label for="node-input-channelAccessToken"><i class="icon-tag"></i> AccessToken</label>
+        <label for="node-input-channelAccessToken"><i class="icon-tag"></i> <span data-i18n="bloadcast.label.channelAccessToken">チャンネルアクセストークン</span></label>
         <input type="password" id="node-input-channelAccessToken" placeholder="ChannelAccessToken">
     </div>
 
 </script>
 
 <script type="text/x-red" data-help-name="BloadcastMessage">
-    <p>Send a push message to all your BOT friends.</p>
+    <p>Broadcasts messages to all LINE Bot friends.</p>
 </script>

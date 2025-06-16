@@ -21,20 +21,19 @@
 
 <script type="text/x-red" data-template-name="Notify">
     <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <label for="node-input-name"><i class="icon-tag"></i> <span data-i18n="Notify.label.name">Name</span></label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 
     <div class="form-row">
         <label for="node-input-AccessToken">
             <i class="icon-tag"></i>
-            LINE Notify AccessToken
+            <span data-i18n="Notify.label.accessToken">LINE Notify AccessToken</span>
         </label>
         <input type="password" id="node-input-AccessToken" placeholder="LINE Notify AccessToken">
     </div>
-    <p> ※LINE Notifyは2025/3/31でサービス終了となります。利用をやめてPushメッセージなどに移行してください。 https://developers.line.biz/ja/news/2024/10/07/line-notify-will-be-discontinued/ </p>
-    <p>こちらのノードは旧バージョンになります。Newバージョンの利用を検討してください。</p>
-    <p>This node is the old version, please consider using the New version.</p>
+    <p data-i18n="Notify.label.deprecationNotice"> ※LINE Notifyは2025/3/31でサービス終了となります。利用をやめてPushメッセージなどに移行してください。 </p>
+    <p data-i18n="Notify.label.oldVersionNotice">こちらのノードは旧バージョンになります。Newバージョンの利用を検討してください。</p>
 </script>
 
 <script type="text/x-red" data-help-name="Notify">

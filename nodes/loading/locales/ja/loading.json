@@ -1,0 +1,10 @@
+{
+    "loading": {
+        "label": {
+            "name": "名前",
+            "lineConfig": "LINE Bot設定",
+            "targetId": "ユーザーID",
+            "loadingSeconds": "ローディング秒数"
+        }
+    }
+}

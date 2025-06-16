@@ -1,0 +1,14 @@
+{
+    "validation": {
+        "botNameRequired": "ボット名は必須です！",
+        "channelSecretRequired": "チャンネルシークレットは必須です！",
+        "channelAccessTokenRequired": "チャンネルアクセストークンは必須です！"
+    },
+    "label": {
+        "botName": "ボット名",
+        "channelSecret": "チャンネルシークレット",
+        "channelAccessToken": "チャンネルアクセストークン",
+        "botIcon": "ボットアイコン",
+        "fetchBotInfo": "Bot名＆アイコンを取得"
+    }
+}
