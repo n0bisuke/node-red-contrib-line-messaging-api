@@ -4,11 +4,7 @@
         color: '#01B301',
         defaults: {
             name: {value:""},
-        },
-
-        credentials: {
-            channelSecret:{value:"", type: "password", required:true},
-            channelAccessToken:{value:"", type: "password", required:true}
+            lineConfig: {value: "", type:"lineConfig", required:true},
         },
 
         inputs: 1,
@@ -29,14 +25,10 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 
+    <!-- LINE Config -->
     <div class="form-row">
-        <label for="node-input-channelSecret"><i class="icon-tag"></i> <span data-i18n="bloadcast.label.channelSecret">チャンネルシークレット</span></label>
-        <input type="password" id="node-input-channelSecret" placeholder="ChannelSecret">
-    </div>
-
-    <div class="form-row">
-        <label for="node-input-channelAccessToken"><i class="icon-tag"></i> <span data-i18n="bloadcast.label.channelAccessToken">チャンネルアクセストークン</span></label>
-        <input type="password" id="node-input-channelAccessToken" placeholder="ChannelAccessToken">
+        <label for="node-input-lineConfig"><i class="icon-tag"></i> <span data-i18n="bloadcast.label.lineConfig">LINE Bot設定</span></label>
+        <input type="text" id="node-input-lineConfig">
     </div>
 
 </script>

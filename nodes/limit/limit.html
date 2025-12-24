@@ -4,9 +4,7 @@
         color: '#01B301',
         defaults: {
             name: {value:""},
-        },
-        credentials: {
-            AccessToken: { type: "password", required: true }
+            lineConfig: {value: "", type:"lineConfig", required:true},
         },
         inputs:1,
         outputs:1,
@@ -25,12 +23,13 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 
+    <!-- LINE Config -->
     <div class="form-row">
-        <label for="node-input-AccessToken">
+        <label for="node-input-lineConfig">
             <i class="icon-tag"></i>
-            <span data-i18n="limit.label.accessToken">チャンネルアクセストークン</span>
-        </label>
-        <input type="password" id="node-input-AccessToken" placeholder="LINE Limit AccessToken">
+            <span data-i18n="limit.label.lineConfig">LINE Bot設定</span>
+        </label> 
+        <input type="text" id="node-input-lineConfig">
     </div>
 </script>
 

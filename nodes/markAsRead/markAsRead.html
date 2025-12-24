@@ -8,11 +8,14 @@
         },
         inputs: 1,
         outputs: 1,
-        icon: "check.png",
+        inputLabels: ["LINE Messages Object"],
+        outputLabels: ["LINE Messages Object or Error Message"],
+        icon: "font-awesome/fa-check-square",
         align: 'right',
         label: function () {
-            return this.name || 'markAsRead';
+            return this.name || 'Mark As Read';
         },
+        paletteLabel: 'MarkAsRead',
     });
 </script>
 

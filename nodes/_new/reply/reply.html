@@ -13,12 +13,14 @@
         },
         inputs:1,
         outputs:1,
-        icon: "comment.png",
+        outputLabels: ["sentMessages（object）"],
+        icon: "font-awesome/fa-reply",
         align: "right",
         paletteLabel: 'Reply',
         label: function () {
-            return this.name || 'ReplyMessage_New';
-        }
+            return this.name || 'Reply Message';
+        },
+        paletteLabel: "Reply"
     });
 </script>
 
@@ -37,17 +39,17 @@
     </div>
 
     <div class="form-row">
-        <label for="node-input-channelSecret"><i class="icon-tag"></i> <span data-i18n="lineConfig.label.channelSecret">Secret</span></label>
+        <label for="node-input-channelSecret"><i class="icon-tag"></i> <span data-i18n="lineConfig.label.channelSecret">( Secret )</span></label>
         <input type="password" id="node-input-channelSecret" placeholder="ChannelSecret">
     </div>
 
     <div class="form-row">
-        <label for="node-input-channelAccessToken"><i class="icon-tag"></i> <span data-i18n="lineConfig.label.channelAccessToken">AccessToken</span></label>
+        <label for="node-input-channelAccessToken"><i class="icon-tag"></i> <span data-i18n="lineConfig.label.channelAccessToken">( AccessToken )</span></label>
         <input type="password" id="node-input-channelAccessToken" placeholder="ChannelAccessToken">
     </div>
 
     <div class="form-row">
-        <label for="node-input-replyMessage"><i class="icon-tag"></i> <span data-i18n="reply.label.message">ReplyMessage</span></label>
+        <label for="node-input-replyMessage"><i class="icon-tag"></i> <span data-i18n="reply.label.message"> Reply Message</span></label>
         <input type="text" id="node-input-replyMessage" placeholder="static text message here">
     </div>
 </script>

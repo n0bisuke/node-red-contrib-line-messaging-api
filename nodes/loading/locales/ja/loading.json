@@ -4,7 +4,8 @@
             "name": "名前",
             "lineConfig": "LINE Bot設定",
             "targetId": "ユーザーID",
-            "loadingSeconds": "ローディング秒数"
+            "loadingSeconds": "ローディング秒数",
+            "waitForCompletion": "ローディング秒数分、実際の処理も待機する"
         }
     }
 }

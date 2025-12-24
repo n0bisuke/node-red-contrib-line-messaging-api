@@ -14,10 +14,13 @@
         },
         inputs: 1,
         outputs: 1,
-        icon: "comment.png",
+        icon: "font-awesome/fa-comment",
         align: "right",
         paletteLabel: 'Push',
-        label: () => this.name || 'PushMessage_New'
+        label: function () {
+            return this.name || 'Push Message';
+        },
+        paletteLabel: "Push"
     });
 </script>
 

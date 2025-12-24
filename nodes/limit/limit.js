@@ -4,7 +4,22 @@ module.exports = (RED) => {
     const main = function(config){
         const node = this;
         RED.nodes.createNode(node, config);
-        const LINE_TOKEN = node.credentials.AccessToken;
+        let lineconfig = {};
+        try {
+            lineconfig = require('../../env');
+        } catch (error) {
+            node.lineConfig = RED.nodes.getNode(config.lineConfig); //共通のlineConfigを取得
+
+            lineconfig = {
+                channelSecret: node.lineConfig.credentials.LineChannelSecret,
+                channelAccessToken: node.lineConfig.credentials.LineChannelAccessToken
+            };
+        }
+        if(lineconfig.channelAccessToken === undefined || lineconfig.channelAccessToken === '') {
+            console.error('LINE token not found');
+            return;
+        }
+        const LINE_TOKEN = lineconfig.channelAccessToken;
 
         node.on('input', async (msg, send, done) => {
             const mes = msg.payload;
@@ -52,9 +67,5 @@ module.exports = (RED) => {
         });
     }
 
-    RED.nodes.registerType("Limit", main, {
-        credentials: {
-            AccessToken: {type:"password"}
-        }
-    });
+    RED.nodes.registerType("Limit", main);
 }

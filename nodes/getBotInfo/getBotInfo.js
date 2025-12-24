@@ -38,7 +38,7 @@ module.exports = (RED) => {
                 done(error);
             }
 
-            console.log("Message received:", msg.payload);
+            // console.log("Message received:", msg.payload);
         });
     }
 

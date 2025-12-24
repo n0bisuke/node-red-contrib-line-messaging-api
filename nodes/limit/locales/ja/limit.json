@@ -2,7 +2,7 @@
     "limit": {
         "label": {
             "name": "名前",
-            "accessToken": "チャンネルアクセストークン"
+            "lineConfig": "LINE Bot設定"
         }
     }
 }

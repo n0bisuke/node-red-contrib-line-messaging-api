@@ -7,11 +7,16 @@ module.exports = (RED) => {
         const node = this;
         RED.nodes.createNode(node, config);
 
-        let lineconfig;
+        let lineconfig = {};
         try {
             lineconfig = require('../../env');
         } catch (error) {
-            lineconfig = { channelSecret: node.credentials.channelSecret, channelAccessToken: node.credentials.channelAccessToken};
+            node.lineConfig = RED.nodes.getNode(config.lineConfig); //共通のlineConfigを取得
+
+            lineconfig = {
+                channelSecret: node.lineConfig.credentials.LineChannelSecret,
+                channelAccessToken: node.lineConfig.credentials.LineChannelAccessToken
+            };
         }
 
         if(lineconfig.channelSecret === '' || lineconfig.channelAccessToken === '') {
@@ -43,10 +48,5 @@ module.exports = (RED) => {
         });
     }
 
-    RED.nodes.registerType("BloadcastMessage", main, {
-        credentials: {
-            channelSecret: {type:"password"},
-            channelAccessToken: {type:"password"},
-        },
-    });
+    RED.nodes.registerType("BloadcastMessage", main);
 }

@@ -4,13 +4,14 @@
         color: '#01B301',
         defaults: {
             name: {value:""},
-            targetId: {value:"", required:true},
+            // targetId: {value:"", required:true},
             lineConfig: {value: "", type:"lineConfig", required:true}, //共通のlineConfigを使う
-            loadingSeconds: {value: 20}
+            loadingSeconds: {value: 20},
+            waitForCompletion: {value: false}
         },
         inputs:1,
         outputs:1,
-        icon: "timer.png",
+        icon: "font-awesome/fa-spinner",
         align: "right",
         label: function() {
             return this.name||"Loading";
@@ -33,10 +34,10 @@
     </div>
 
     <!-- chat ID / User ID -->
-    <div class="form-row">
+    <!-- <div class="form-row">
         <label for="node-input-targetId"><i class="icon-tag"></i> <span data-i18n="loading.label.targetId">ユーザーID</span></label>
         <input type="text" id="node-input-targetId" placeholder="User Id">
-    </div>
+    </div> -->
 
     <div class="form-row">
         <label for="node-input-loadingSeconds">
@@ -58,10 +59,16 @@
         </select>
     </div>
 
-    <p>
+    <div class="form-row">
+        <label>&nbsp;</label>
+        <input type="checkbox" id="node-input-waitForCompletion" style="width:auto; margin-right:6px;">
+        <span data-i18n="loading.label.waitForCompletion">完了まで待機する</span>
+    </div>
+
+    <!-- <p>
         Displays a loading indicator for the specified duration. Currently supports individual chats only (user IDs starting with 'U'). 
         See <a href="https://developers.line.biz/ja/reference/messaging-api/#display-a-loading-indicator" target="_blank">official documentation</a> for details.
-    </p>
+    </p> -->
 </script>
 
 <script type="text/html" data-help-name="Loading">

@@ -2,8 +2,7 @@
     "bloadcast": {
         "label": {
             "name": "名前",
-            "channelSecret": "チャンネルシークレット",
-            "channelAccessToken": "チャンネルアクセストークン"
+            "lineConfig": "LINE Bot設定"
         }
     }
 }
