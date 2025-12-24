@@ -64,7 +64,7 @@ module.exports = (RED) => {
 
         // 新仕様
         const reply = async (msg) => {
-            console.log(typeof msg.payload, msg.payload);
+            // console.log(typeof msg.payload, msg.payload);
             if (!msg.line || !msg.line.event || !msg.line.event.type) {
                 throw 'no valid LINE event found within msg';
             } else if (!msg.line.event.replyToken) {

@@ -152,6 +152,7 @@ https://developers.line.biz/en/reference/messaging-api/#get-bot-info
 
 ## Release Notes
 
+- 2024/12/27: v0.4.3 - Added internationalization (i18n) support, removed LINE Notify nodes (API discontinued), updated documentation with English/Japanese versions
 - 2024/12/27: Added Loading, getProfile, and config nodes
 - 2023/12/11: Added Notify_new with sticker and image support
 - 2021/8/1: Reply Message now supports images (thanks [@ukkz](https://github.com/ukkz))

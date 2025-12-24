@@ -10,10 +10,16 @@ module.exports = (RED) => {
         try {
             lineconfig = require('../../env');
         } catch (error) {
-            lineconfig = {
-                channelSecret: node.credentials.channelSecret,
-                channelAccessToken: node.credentials.channelAccessToken
-            };
+            const globalLineConfig = node.context().global.get("lineConfig");
+            if (globalLineConfig) {
+                lineconfig = globalLineConfig;
+            } else {
+                lineconfig = {
+                    channelSecret: node.credentials.channelSecret,
+                    channelAccessToken: node.credentials.channelAccessToken
+                };
+            }
+
         }
 
         if (lineconfig.channelSecret === '' || lineconfig.channelAccessToken === '') {

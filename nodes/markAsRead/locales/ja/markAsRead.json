@@ -1,0 +1,8 @@
+{
+    "markAsRead": {
+        "label": {
+            "name": "名前",
+            "accessToken": "チャンネルアクセストークン"
+        }
+    }
+}

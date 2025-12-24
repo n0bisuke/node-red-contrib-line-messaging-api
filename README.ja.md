@@ -152,6 +152,7 @@ https://developers.line.biz/ja/reference/messaging-api/#get-bot-info
 
 ## リリースノート
 
+- 2024/12/27: v0.4.3 - 多言語化（i18n）対応、LINE Notifyノード削除（API終了）、英語・日本語ドキュメント整備
 - 2024/12/27: Loading / getProfile / configノードの追加
 - 2023/12/11: Notify_newを追加。スタンプや画像も送れるように。
 - 2021/8/1: Reply Messageが画像に対応（thanks [@ukkz](https://github.com/ukkz)）

@@ -1,0 +1,44 @@
+<script>
+    RED.nodes.registerType('markAsRead', {
+        category: 'LINE',
+        color: '#01B301',
+        defaults: {
+            name: {value: ''},
+            lineConfig: {value: "", type:"lineConfig", required:true},
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "check.png",
+        align: 'right',
+        label: function () {
+            return this.name || 'markAsRead';
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="markAsRead">
+    <!-- 名前 -->
+    <div class="form-row">
+        <label for="node-input-name">
+            <i class="fa fa-tag"></i>
+            <span data-i18n="markAsRead.label.name">名前</span>
+        </label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    
+    <!-- LINE Config -->
+    <div class="form-row">
+        <label for="node-input-lineConfig">
+            <i class="fa fa-tag"></i>
+            <span data-i18n="markAsRead.label.lineConfig">LINE Bot設定</span>
+        </label> 
+        <input type="text" id="node-input-lineConfig">
+    </div>
+    
+</script>
+
+<script type="text/html" data-help-name="markAsRead">
+    <p>Gets the user profile information.</p>
+</script>
+
+
