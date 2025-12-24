@@ -150,6 +150,11 @@ https://developers.line.biz/en/reference/messaging-api/#get-bot-info
 
 ---
 
+## Dependency versions
+
+This node restricts some dependencies to a specific major version
+because newer major versions may introduce breaking changes.
+
 ## Release Notes
 
 - 2024/12/27: v0.4.3 - Added internationalization (i18n) support, removed LINE Notify nodes (API discontinued), updated documentation with English/Japanese versions
